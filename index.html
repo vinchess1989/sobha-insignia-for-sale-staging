@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0908">
 <title>Sobha Insignia for Sale</title>
 <meta name="description" content="3.5 BHK, 2,403 sft, 6th Floor, Sobha Insignia, Bengaluru — for sale by owner. ₹4.5 Cr.">
 <meta property="og:title" content="Sobha Insignia for Sale">
@@ -66,46 +67,21 @@
     padding:.55rem 1.1rem; border-radius:.6rem; text-decoration:none;
     flex-shrink:0; white-space:nowrap;
   }
-  @media (max-width:820px){ .nav-links{display:none;} .nav-cta{display:none;} }
-
-  .nav-toggle{
-    display:none; background:none; border:none; color:var(--text-1); font-size:1.2rem;
-    cursor:pointer; padding:.3rem .4rem; margin-left:.6rem; line-height:1; flex-shrink:0;
+  @media (max-width:1180px){
+    nav{padding:1rem 1.5rem;}
+    .nav-links{gap:1.1rem;}
+    .nav-links a{font-size:.76rem; letter-spacing:.01em;}
   }
-  @media (max-width:820px){
-    .nav-toggle{display:inline-flex; align-items:center;}
-    nav{padding:.85rem 1rem; gap:.5rem;}
-    .nav-logo{font-size:.95rem; white-space:nowrap;}
-  }
-
-  .mobile-menu{
-    position:fixed; top:0; left:0; right:0; z-index:99;
-    background:rgba(10,9,8,0.97); backdrop-filter:blur(20px);
-    border-bottom:1px solid var(--border);
-    padding-top:4.2rem;
-    transform:translateY(-110%); transition:transform .3s ease;
-    display:none;
-  }
-  .mobile-menu ul{list-style:none; display:flex; flex-direction:column; padding:.5rem 2rem 1.5rem;}
-  .mobile-menu a{
-    display:block; padding:.9rem 0; color:var(--text-2); text-decoration:none;
-    font-size:.95rem; font-weight:500; border-bottom:1px solid var(--border);
-  }
-  .mobile-menu a:hover, .mobile-menu a:active{color:var(--gold-soft);}
-  .mobile-menu a.mobile-menu-cta{
-    background:linear-gradient(135deg,var(--gold),#a9822a); color:#1a1305;
-    font-weight:700; text-align:center; border-radius:.6rem; border-bottom:none;
-    margin-bottom:.75rem; padding:.85rem;
-  }
-  @media (max-width:820px){
-    .mobile-menu{display:block;}
-    .mobile-menu.open{transform:translateY(0);}
+  @media (max-width:880px){
+    .nav-links{gap:.85rem;}
+    .nav-cta{padding:.55rem .7rem;}
+    .nav-cta-text{display:none;}
   }
 
   .hero{
     min-height:100vh;
     display:flex; align-items:center; justify-content:center;
-    padding:8rem 2rem 5rem; position:relative; text-align:center;
+    padding:8rem 2rem 5rem; position:relative; text-align:center; overflow:hidden;
   }
   .hero::after{
     content:''; position:absolute; top:28%; left:50%;
@@ -424,6 +400,131 @@
     .fv-mute{bottom:.35rem; right:.35rem;}
     .fv-label{display:none;}
   }
+
+  /* ===========================================================
+     MOBILE APP SHELL — phones (portrait <=768px) and phones in
+     landscape. One screen per bottom tab; desktop is untouched.
+     =========================================================== */
+  .mobile-app-bottom-nav{display:none;}
+
+  @media (max-width:768px), (max-height:550px) and (orientation:landscape){
+    :root{--app-hdr:50px;}
+    html{-webkit-tap-highlight-color:transparent;}
+    body{display:flex; flex-direction:column; padding-top:var(--app-hdr); padding-bottom:calc(66px + env(safe-area-inset-bottom,0px)); overflow-x:clip;}
+    .stats-strip{width:100%;}
+    #walkthrough{order:-1;}
+    button{touch-action:manipulation;}
+
+    /* App bar: logo + WhatsApp icon only */
+    nav{padding:0 1rem; height:var(--app-hdr); background:rgba(10,9,8,0.96);}
+    .nav-links{display:none;}
+    .nav-logo{font-size:1rem; white-space:nowrap;}
+    .nav-cta{width:36px; height:36px; padding:0; justify-content:center; border-radius:50%; font-size:1.15rem;}
+    .nav-cta-text{display:none;}
+
+    /* One screen at a time */
+    [data-mtab]{display:none !important;}
+    [data-mtab].mob-active{display:block !important;}
+    .hero[data-mtab].mob-active{display:flex !important;}
+    .stats-strip[data-mtab].mob-active{display:grid !important;}
+
+    /* Remove desktop-only extras */
+    .fade-in{opacity:1 !important; transform:none !important; transition:none !important;}
+    .floating-video, .float-cta{display:none !important;}
+
+    /* Home */
+    .hero{min-height:auto; padding:2rem 1.25rem 1rem;}
+    .hero-eyebrow{font-size:.62rem; letter-spacing:.1em; padding:.35rem .8rem; margin-bottom:1.1rem;}
+    .hero-title{font-size:clamp(2.2rem,10vw,3rem);}
+    .hero-sub{font-size:.95rem; margin-bottom:1.4rem;}
+    .cta-row{flex-wrap:nowrap; gap:.6rem;}
+    .cta-row .btn{flex:1; justify-content:center; padding:.8rem .5rem; font-size:.88rem;}
+    .cta-row a[href^="#"], .cta-row a[href$=".pdf"]{display:none;}
+    .stats-strip{grid-template-columns:repeat(3,1fr); padding:0 1rem 1.25rem; gap:.6rem;}
+    .stat{padding:.9rem .4rem;}
+    .stat-val{font-size:1.15rem;}
+    .stat-lbl{font-size:.58rem;}
+
+    section{padding:1.5rem 1rem 1rem;}
+    section:nth-of-type(even){background:transparent;}
+    .sec-eyebrow{margin-bottom:.35rem;}
+    .sec-title{font-size:1.45rem; margin-bottom:.75rem;}
+    .sec-desc{font-size:.88rem; line-height:1.65; margin-bottom:1.25rem;}
+    .about-grid{gap:1.5rem;}
+    .about-text{font-size:.9rem; line-height:1.75;}
+    .about-text p:nth-child(3){display:none;}
+    .hl-item{padding:.85rem 1rem;}
+
+    /* Plan: demo video pinned on top, floorplan below so a tapped room is seen playing */
+    .floorplan-hint{margin-bottom:.9rem;}
+    .fp-video-grid, .fp-video-grid.expanded{display:flex; flex-direction:column; gap:.7rem; margin-bottom:1.5rem;}
+    .video-col{order:-1; position:sticky; top:var(--app-hdr); z-index:20; margin:0 -1rem; padding:.55rem 1rem; background:rgba(10,9,8,0.97); backdrop-filter:blur(14px); border-bottom:1px solid var(--border);}
+    .video-col-label{display:none;}
+    .video-col .video-wrap{border-radius:.9rem; box-shadow:none;}
+    .floorplan-img{padding:.35rem; border-radius:.9rem; margin-inline:-.35rem;}
+    .rooms-table th, .rooms-table td{padding:.65rem .9rem; font-size:.82rem;}
+    .master-plan-block .sec-eyebrow{margin-top:2rem !important;}
+
+    /* Photos */
+    .gallery-grid{grid-template-columns:repeat(2,1fr); gap:.4rem;}
+    .gallery-thumb{border-radius:.65rem;}
+    .gallery-group{margin-bottom:1.75rem;}
+    .gallery-group-title{font-size:1rem; margin-bottom:.75rem;}
+
+    /* Project */
+    .video-wrap{border-radius:1rem;}
+    #walkthrough .video-wrap iframe{width:100%; height:auto; aspect-ratio:16/9;}
+    .amen-grid{grid-template-columns:repeat(2,1fr); gap:.6rem;}
+    .amen-card{padding:.95rem .5rem; border-radius:.85rem;}
+    .amen-icon{font-size:1.25rem; margin-bottom:.5rem;}
+    .amen-name{font-size:.78rem;}
+    .specs-grid{gap:.75rem;}
+    .spec-card{padding:1.15rem;}
+
+    /* Contact */
+    .brochure-panel{padding:1.25rem; gap:1rem;}
+    .brochure-icon{width:64px; height:64px; font-size:1.6rem;}
+    .contact-grid{gap:.7rem; margin-bottom:1.5rem;}
+    .contact-link{min-width:0;}
+    .c-val{overflow-wrap:anywhere;}
+    footer{padding:1.5rem 1rem;}
+
+    /* Bottom tab bar */
+    .mobile-app-bottom-nav{
+      display:flex; position:fixed; left:0; right:0; bottom:0; z-index:190;
+      height:calc(58px + env(safe-area-inset-bottom,0px));
+      padding:0 .25rem env(safe-area-inset-bottom,0px);
+      background:rgba(10,9,8,0.97); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px);
+      border-top:1px solid var(--border); box-shadow:0 -4px 20px rgba(0,0,0,0.6);
+      justify-content:space-around; align-items:center; transform:translateZ(0);
+    }
+    .mobile-nav-item{
+      flex:1; min-width:0; max-width:84px; padding:.35rem .25rem;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px;
+      background:none; border:none; border-radius:.6rem; cursor:pointer;
+      color:var(--text-3); font-family:inherit; transition:color .15s, transform .15s;
+    }
+    .mobile-nav-item i{font-size:1.15rem;}
+    .mobile-nav-label{font-size:.64rem; font-weight:600; letter-spacing:.01em;}
+    .mobile-nav-item:active{transform:scale(.92);}
+    .mobile-nav-item.active{color:var(--gold-soft);}
+    .mobile-nav-item.active i{filter:drop-shadow(0 0 8px rgba(212,175,55,0.6));}
+  }
+
+  /* Phones in landscape: compact chrome, floorplan and video side by side */
+  @media (max-height:550px) and (orientation:landscape){
+    :root{--app-hdr:40px;}
+    body{padding-bottom:calc(48px + env(safe-area-inset-bottom,0px));}
+    .nav-cta{width:30px; height:30px; font-size:1rem;}
+    .hero{padding:1rem 2rem;}
+    .fp-video-grid, .fp-video-grid.expanded{display:grid; grid-template-columns:1.2fr 1fr; align-items:start; gap:1rem;}
+    .video-col{order:0; margin:0; padding:0; border:none; background:transparent; top:calc(var(--app-hdr) + .5rem);}
+    .gallery-grid, .amen-grid{grid-template-columns:repeat(4,1fr);}
+    .mobile-app-bottom-nav{height:calc(42px + env(safe-area-inset-bottom,0px));}
+    .mobile-nav-item{flex-direction:row; gap:6px; max-width:none; padding:.2rem;}
+    .mobile-nav-item i{font-size:1rem;}
+    .mobile-nav-label{font-size:.7rem;}
+  }
 </style>
 </head>
 <body>
@@ -440,25 +541,10 @@
     <li><a href="#demo-unit">Demo Walkthrough</a></li>
     <li><a href="#brochure">Brochure</a></li>
   </ul>
-  <a class="nav-cta" href="https://wa.me/918921658093?text=Hi%2C%20I%27m%20interested%20in%20your%20listing%20at%20Sobha%20Insignia" target="_blank"><i class="fab fa-whatsapp"></i> Enquire</a>
-  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><i class="fas fa-bars"></i></button>
+  <a class="nav-cta" href="https://wa.me/918921658093?text=Hi%2C%20I%27m%20interested%20in%20your%20listing%20at%20Sobha%20Insignia" target="_blank" aria-label="Enquire on WhatsApp"><i class="fab fa-whatsapp"></i> <span class="nav-cta-text">Enquire</span></a>
 </nav>
 
-<div class="mobile-menu" id="mobileMenu">
-  <ul>
-    <li><a class="mobile-menu-cta" href="https://wa.me/918921658093?text=Hi%2C%20I%27m%20interested%20in%20your%20listing%20at%20Sobha%20Insignia" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp / Enquire</a></li>
-    <li><a href="#about">Overview</a></li>
-    <li><a href="#floorplan">Floorplan</a></li>
-    <li><a href="#amenities">Amenities</a></li>
-    <li><a href="#location">Location</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#walkthrough">Project Walkthrough</a></li>
-    <li><a href="#demo-unit">Demo Walkthrough</a></li>
-    <li><a href="#brochure">Brochure</a></li>
-  </ul>
-</div>
-
-<section class="hero">
+<section class="hero" data-mtab="home">
   <div class="hero-inner">
     <div class="hero-eyebrow"><i class="fas fa-key"></i> For Sale &middot; By Owner &middot; Ready Aug 2026</div>
     <h1 class="hero-title">Sobha Insignia<br><span class="accent">For Sale</span></h1>
@@ -474,7 +560,7 @@
   </div>
 </section>
 
-<div class="stats-strip fade-in">
+<div class="stats-strip fade-in" data-mtab="home">
   <div class="stat"><div class="stat-val">3.5</div><div class="stat-lbl">BHK</div></div>
   <div class="stat"><div class="stat-val">2,403</div><div class="stat-lbl">Sft Super Built&#8209;up</div></div>
   <div class="stat"><div class="stat-val">1,525</div><div class="stat-lbl">Sft Carpet Area</div></div>
@@ -483,7 +569,7 @@
   <div class="stat"><div class="stat-val">2026</div><div class="stat-lbl">Handover</div></div>
 </div>
 
-<section id="about">
+<section id="about" data-mtab="home">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Overview</div>
     <h2 class="sec-title fade-in">A Signature Sobha Address on the ORR</h2>
@@ -521,12 +607,12 @@
   </div>
 </section>
 
-<section id="floorplan">
+<section id="floorplan" data-mtab="plan">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Floorplan</div>
     <h2 class="sec-title fade-in">Type&#8209;C Floorplan &amp; Room Dimensions</h2>
     <p class="sec-desc fade-in">Official architectural plan &mdash; 3.5&nbsp;BHK + study/home office, from the registered Agreement for Sale.</p>
-    <p class="floorplan-hint fade-in"><i class="fas fa-circle-play"></i> Click a room to jump the demo walkthrough video to that part of the house.</p>
+    <p class="floorplan-hint fade-in"><i class="fas fa-circle-play"></i> Tap or click a room to jump the demo walkthrough video to that part of the house.</p>
 
     <div class="fp-video-grid" id="fpVideoGrid">
       <div class="floorplan-col fade-in" id="floorplanCol">
@@ -593,7 +679,7 @@
   </div>
 </section>
 
-<section id="amenities">
+<section id="amenities" data-mtab="project">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Amenities</div>
     <h2 class="sec-title fade-in">Project Amenities</h2>
@@ -615,7 +701,7 @@
   </div>
 </section>
 
-<section id="location">
+<section id="location" data-mtab="project">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Location</div>
     <h2 class="sec-title fade-in">Nearby Corporate Parks, Hospitals &amp; Colleges</h2>
@@ -626,7 +712,7 @@
   </div>
 </section>
 
-<section id="gallery">
+<section id="gallery" data-mtab="photos">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Photo Gallery</div>
     <h2 class="sec-title fade-in">See the Space</h2>
@@ -693,7 +779,7 @@
   <div class="lightbox-btn lightbox-nav lightbox-next" id="lightboxNext"><i class="fas fa-chevron-right"></i></div>
 </div>
 
-<section id="specs">
+<section id="specs" data-mtab="project">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Specifications</div>
     <h2 class="sec-title fade-in">Built to Sobha's Signature Standard</h2>
@@ -734,18 +820,18 @@
   </div>
 </section>
 
-<section id="walkthrough">
+<section id="walkthrough" data-mtab="project">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Walkthrough</div>
     <h2 class="sec-title fade-in">Project Walkthrough</h2>
     <p class="sec-desc fade-in">Official project walkthrough from Sobha Limited.</p>
     <div class="video-wrap fade-in">
-      <iframe width="100%" height="600" src="https://www.youtube.com/embed/ZPbH7YxCH7U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius: 1.5rem; display: block;"></iframe>
+      <iframe width="100%" height="600" loading="lazy" src="https://www.youtube.com/embed/ZPbH7YxCH7U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius: 1.5rem; display: block;"></iframe>
     </div>
   </div>
 </section>
 
-<section id="brochure">
+<section id="brochure" data-mtab="contact">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Documentation</div>
     <h2 class="sec-title fade-in">Project Brochure</h2>
@@ -762,7 +848,7 @@
   </div>
 </section>
 
-<section id="contact">
+<section id="contact" data-mtab="contact">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Get in Touch</div>
     <h2 class="sec-title fade-in">Interested? Let's Talk.</h2>
@@ -785,9 +871,17 @@
   </div>
 </section>
 
-<footer>
+<footer data-mtab="contact">
   <p><b>Sobha Insignia</b> &middot; Bhoganahalli, Bengaluru &middot; For Sale by Owner</p>
 </footer>
+
+<div id="mobileAppBottomNav" class="mobile-app-bottom-nav" role="navigation" aria-label="App navigation">
+  <button class="mobile-nav-item active" data-tab="home" aria-label="Home"><i class="fas fa-house"></i><span class="mobile-nav-label">Home</span></button>
+  <button class="mobile-nav-item" data-tab="plan" aria-label="Floorplan and demo tour"><i class="fas fa-draw-polygon"></i><span class="mobile-nav-label">Plan</span></button>
+  <button class="mobile-nav-item" data-tab="photos" aria-label="Photos"><i class="fas fa-images"></i><span class="mobile-nav-label">Photos</span></button>
+  <button class="mobile-nav-item" data-tab="project" aria-label="Project details"><i class="fas fa-building"></i><span class="mobile-nav-label">Project</span></button>
+  <button class="mobile-nav-item" data-tab="contact" aria-label="Contact"><i class="fas fa-phone"></i><span class="mobile-nav-label">Contact</span></button>
+</div>
 
 <a class="float-cta" href="https://wa.me/918921658093?text=Hi%2C%20I%27m%20interested%20in%20your%20listing%20at%20Sobha%20Insignia" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
@@ -807,6 +901,13 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  const APP_VIEW_QUERY = '(max-width:768px), (max-height:550px) and (orientation:landscape)';
+  const isAppView = () => window.matchMedia(APP_VIEW_QUERY).matches;
+  if (isAppView()) {
+    const pip = document.getElementById('floatingVideo');
+    if (pip) pip.remove();
+  }
 
   const fvWrap = document.getElementById('floatingVideo');
   const fvClose = document.getElementById('fvClose');
@@ -884,7 +985,7 @@
     hotspot.addEventListener('click', (e) => {
       e.stopPropagation();
       const seconds = parseInt(hotspot.dataset.time, 10);
-      expandVideo();
+      if (!isAppView()) expandVideo();
       seekDemo(seconds);
     });
   });
@@ -895,23 +996,51 @@
     });
   }
 
-  const navToggle = document.getElementById('navToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  if (navToggle && mobileMenu) {
-    const closeMobileMenu = () => {
-      mobileMenu.classList.remove('open');
-      navToggle.innerHTML = '<i class="fas fa-bars"></i>';
-      navToggle.setAttribute('aria-label', 'Open menu');
-      navToggle.setAttribute('aria-expanded', 'false');
-    };
-    navToggle.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('open');
-      navToggle.innerHTML = isOpen ? '<i class="fas fa-xmark"></i>' : '<i class="fas fa-bars"></i>';
-      navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
-      navToggle.setAttribute('aria-expanded', String(isOpen));
-    });
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
+  const SECTION_TAB = {
+    home: 'home', about: 'home',
+    plan: 'plan', floorplan: 'plan', 'demo-unit': 'plan',
+    photos: 'photos', gallery: 'photos',
+    project: 'project', walkthrough: 'project', amenities: 'project', location: 'project', specs: 'project',
+    contact: 'contact', brochure: 'contact'
+  };
+  const mobTabBtns = document.querySelectorAll('.mobile-nav-item');
+
+  function setMobTab(tab) {
+    document.querySelectorAll('[data-mtab]').forEach(el => el.classList.toggle('mob-active', el.dataset.mtab === tab));
+    mobTabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
   }
+
+  function openMobTab(tab, sectionId) {
+    setMobTab(tab);
+    const target = sectionId && sectionId !== tab ? document.getElementById(sectionId) : null;
+    if (target) target.scrollIntoView({ behavior: 'instant' });
+    else window.scrollTo({ top: 0, behavior: 'instant' });
+    try { history.replaceState(null, '', '#' + (sectionId || tab)); } catch (err) {}
+  }
+
+  mobTabBtns.forEach(b => b.addEventListener('click', () => openMobTab(b.dataset.tab)));
+
+  document.addEventListener('click', (e) => {
+    if (!isAppView()) return;
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const id = a.getAttribute('href').slice(1);
+    if (!SECTION_TAB[id]) return;
+    e.preventDefault();
+    openMobTab(SECTION_TAB[id], id);
+  });
+
+  const initialId = location.hash.slice(1);
+  const initialTab = SECTION_TAB[initialId] || 'home';
+  setMobTab(initialTab);
+  if (isAppView() && initialId && initialId !== initialTab && SECTION_TAB[initialId]) {
+    requestAnimationFrame(() => {
+      const t = document.getElementById(initialId);
+      if (t) t.scrollIntoView({ behavior: 'instant' });
+    });
+  }
+
+  window.matchMedia(APP_VIEW_QUERY).addEventListener('change', (e) => { if (e.matches) collapseVideo(); });
 
   document.querySelectorAll('a[href="#demo-unit"]').forEach(link => {
     link.addEventListener('click', (e) => {
