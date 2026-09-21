@@ -186,10 +186,14 @@
   }
   .floorplan-img img{width:100%; display:block; border-radius:.5rem; aspect-ratio:2995/1926;}
   .floorplan-hint{
-    display:flex; align-items:center; gap:.5rem;
-    font-size:.8rem; color:var(--text-3); margin-bottom:1.5rem;
+    display:flex; align-items:center; gap:.7rem; width:fit-content; max-width:100%;
+    padding:.6rem 1.1rem; margin-bottom:1.5rem;
+    border:1px solid var(--border-lit); border-radius:2rem;
+    background:rgba(212,175,55,0.09); color:var(--gold-soft);
+    font-size:.9rem; font-weight:600; line-height:1.35;
   }
-  .floorplan-hint i{color:var(--gold-soft);}
+  .floorplan-hint i{color:var(--gold-soft); font-size:1.05rem; animation:fpTap 1.6s ease-in-out infinite;}
+  @keyframes fpTap{0%,100%{transform:translateY(0);} 50%{transform:translateY(-4px);}}
   .floorplan-stage{position:relative;}
   .plain-floorplan-link{
     display:inline-flex; align-items:center; gap:.5rem;
@@ -256,6 +260,53 @@
   }
   @media (max-width:820px){
     .fp-hotspot-label{font-size:.62rem; padding:.28rem .5rem;}
+  }
+
+  /* Always-visible play markers so the plan reads as interactive without hovering */
+  .fp-hotspot::before{
+    content:"\f04b"; font-family:"Font Awesome 6 Free"; font-weight:900;
+    position:absolute; left:calc(50% + var(--dx,0%)); top:calc(50% + var(--dy,-30%));
+    transform:translate(-50%,-50%);
+    width:20px; height:20px; padding-left:1px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:8px; color:#1a1305;
+    background:linear-gradient(135deg,var(--gold-soft),var(--gold));
+    box-shadow:0 0 0 0 rgba(212,175,55,0.65), 0 2px 6px rgba(0,0,0,0.35);
+    animation:fpPulse 2.2s ease-out infinite;
+    transition:transform .15s;
+    pointer-events:none; z-index:1;
+  }
+  .fp-hotspot:nth-of-type(3n)::before{animation-delay:.45s;}
+  .fp-hotspot:nth-of-type(3n+1)::before{animation-delay:.9s;}
+  @keyframes fpPulse{
+    0%{box-shadow:0 0 0 0 rgba(212,175,55,0.65), 0 2px 6px rgba(0,0,0,0.35);}
+    70%,100%{box-shadow:0 0 0 12px rgba(212,175,55,0), 0 2px 6px rgba(0,0,0,0.35);}
+  }
+  .fp-hotspot:hover::before, .fp-hotspot:focus-visible::before{transform:translate(-50%,-50%) scale(1.25);}
+  #floorplanStage.fp-used .fp-hotspot::before{animation:none; opacity:.85;}
+  .fp-hotspot.fp-wave{background:rgba(212,175,55,0.3); border-color:rgba(212,175,55,0.8);}
+  .fp-hotspot.fp-active{
+    background:rgba(212,175,55,0.3); border:2px solid var(--gold);
+    box-shadow:0 0 14px rgba(212,175,55,0.45);
+  }
+  .fp-hotspot.fp-active .fp-hotspot-label{opacity:1; transform:translate(-50%,-50%) scale(1);}
+  .fp-video-grid.expanded .fp-hotspot::before{display:none;}
+
+  /* Caption under the video: says what to do, then what is playing */
+  .video-now{
+    display:flex; align-items:center; gap:.55rem; margin-top:.65rem;
+    font-size:.84rem; color:var(--text-2);
+  }
+  .video-now i{color:var(--gold-soft);}
+  .video-now b{color:var(--gold-soft); font-weight:700;}
+  .video-now.playing{color:var(--text-1);}
+  .video-wrap.fp-flash{animation:vidFlash .9s ease-out;}
+  @keyframes vidFlash{
+    0%{box-shadow:0 0 0 0 rgba(212,175,55,0.85);}
+    100%{box-shadow:0 0 0 16px rgba(212,175,55,0);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .fp-hotspot::before, .floorplan-hint i, .video-wrap.fp-flash{animation:none !important;}
   }
   .master-plan-block{margin-top:1rem;}
   .master-plan-img{
@@ -579,7 +630,7 @@
     .plain-floorplan-link{font-size:.64rem;}
     .video-col{position:static; order:0; margin:0; padding:0; border:none; background:transparent; backdrop-filter:none;}
     .video-col-label{display:block; font-size:.66rem; margin-bottom:.3rem;}
-    .video-col-label::after{content:" \00b7  tap a room on the plan"; color:var(--text-3); font-weight:500;}
+    .video-now{font-size:.66rem; margin-top:.3rem;}
     #floorplan .rooms-wrap-scroll{display:flex; align-items:center; overflow:hidden;}
     .rooms-table, .rooms-table tbody{display:block; width:100%; border:none;}
     .rooms-table thead{display:none;}
@@ -747,26 +798,26 @@
     <div class="sec-eyebrow fade-in">Floorplan</div>
     <h2 class="sec-title fade-in">Type&#8209;C Floorplan &amp; Room Dimensions</h2>
     <p class="sec-desc fade-in">Official architectural plan &mdash; 3.5&nbsp;BHK + study/home office, from the registered Agreement for Sale.</p>
-    <p class="floorplan-hint fade-in"><i class="fas fa-circle-play"></i> Tap or click a room to jump the demo walkthrough video to that part of the house.</p>
+    <p class="floorplan-hint fade-in"><i class="fas fa-hand-pointer"></i> Select any room on the plan to watch its video tour</p>
 
     <div class="fp-video-grid" id="fpVideoGrid" data-page>
       <div class="floorplan-col fade-in" id="floorplanCol">
         <div class="floorplan-img">
           <div class="floorplan-stage" id="floorplanStage">
             <img src="assets/floorplan.png" alt="Floor plan of Sobha Insignia unit, Type C, 3.5 BHK, Ground to 7th Floor">
-            <button class="fp-hotspot" style="left:14.0%;top:16.72%;width:9.25%;height:20.61%" data-time="320" aria-label="Bath (Bedroom 2)"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Bath &middot; BR2</span></button>
-            <button class="fp-hotspot" style="left:16.0%;top:16.72%;width:15.0%;height:21.77%" data-time="308" aria-label="Bedroom 2"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Bedroom 2</span></button>
+            <button class="fp-hotspot" style="left:14.0%;top:16.72%;width:9.25%;height:20.61%;--dx:-22%;--dy:-25%" data-time="320" aria-label="Bath (Bedroom 2)"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Bath &middot; BR2</span></button>
+            <button class="fp-hotspot" style="left:16.0%;top:16.72%;width:15.0%;height:21.77%;--dx:13%" data-time="308" aria-label="Bedroom 2"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Bedroom 2</span></button>
             <button class="fp-hotspot" style="left:34.25%;top:16.72%;width:14.0%;height:8.94%" data-time="170" aria-label="Balcony, Living Room"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Balcony &middot; Living</span></button>
-            <button class="fp-hotspot" style="left:48.25%;top:16.72%;width:9.75%;height:14.39%" data-time="215" aria-label="Utility"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Utility</span></button>
+            <button class="fp-hotspot" style="left:48.25%;top:16.72%;width:9.75%;height:14.39%;--dy:30%" data-time="215" aria-label="Utility"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Utility</span></button>
             <button class="fp-hotspot" style="left:58.0%;top:16.72%;width:10.0%;height:14.39%" data-time="245" aria-label="Common Bath"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Common Bath</span></button>
             <button class="fp-hotspot" style="left:68.0%;top:16.72%;width:13.5%;height:21.77%" data-time="255" aria-label="Bedroom 3"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Bedroom 3</span></button>
             <button class="fp-hotspot" style="left:81.5%;top:16.72%;width:9.5%;height:14.39%" data-time="430" aria-label="Bath, Master Bedroom"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Bath &middot; Master</span></button>
             <button class="fp-hotspot" style="left:14.0%;top:38.49%;width:17.0%;height:15.94%" data-time="150" aria-label="Study / Home Office"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Study</span></button>
             <button class="fp-hotspot" style="left:34.25%;top:25.66%;width:14.0%;height:25.66%" data-time="140" aria-label="Living Room"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Living Room</span></button>
-            <button class="fp-hotspot" style="left:48.25%;top:31.10%;width:9.75%;height:14.0%" data-time="198" aria-label="Kitchen"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Kitchen</span></button>
+            <button class="fp-hotspot" style="left:48.25%;top:31.10%;width:9.75%;height:14.0%;--dy:30%" data-time="198" aria-label="Kitchen"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Kitchen</span></button>
             <button class="fp-hotspot" style="left:81.5%;top:31.10%;width:9.5%;height:14.0%" data-time="418" aria-label="Walk-in Closet"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Walk-in Closet</span></button>
-            <button class="fp-hotspot" style="left:31.0%;top:50.93%;width:10.5%;height:10.5%" data-time="128" aria-label="Foyer"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Foyer</span></button>
-            <button class="fp-hotspot" style="left:48.25%;top:45.10%;width:16.75%;height:16.33%" data-time="160" aria-label="Dining"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Dining</span></button>
+            <button class="fp-hotspot" style="left:31.0%;top:50.93%;width:10.5%;height:10.5%;--dx:-30%;--dy:-10%" data-time="128" aria-label="Foyer"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Foyer</span></button>
+            <button class="fp-hotspot" style="left:48.25%;top:45.10%;width:16.75%;height:16.33%;--dy:25%" data-time="160" aria-label="Dining"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Dining</span></button>
             <button class="fp-hotspot" style="left:65.0%;top:45.10%;width:16.5%;height:16.33%" data-time="390" aria-label="Master Bedroom"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Master Bedroom</span></button>
             <button class="fp-hotspot" style="left:81.5%;top:45.10%;width:9.5%;height:16.33%" data-time="400" aria-label="Balcony, Master Bedroom"><span class="fp-hotspot-label"><i class="fas fa-play"></i>Balcony &middot; Master</span></button>
           </div>
@@ -780,6 +831,7 @@
         <div class="video-wrap">
           <iframe id="demoVideo" width="100%" height="100%" src="https://www.youtube.com/embed/Ct0Kr643H-4?start=121&enablejsapi=1" title="Demo house walkthrough video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius: 1.5rem; display: block;"></iframe>
         </div>
+        <div class="video-now" id="videoNow" aria-live="polite"><i class="fas fa-hand-pointer"></i><span>Select a room on the plan to jump the video to it</span></div>
       </div>
     </div>
 
@@ -1116,14 +1168,48 @@
   function expandVideo() { if (fpVideoGrid) fpVideoGrid.classList.add('expanded'); }
   function collapseVideo() { if (fpVideoGrid) fpVideoGrid.classList.remove('expanded'); }
 
+  const fpStage = document.getElementById('floorplanStage');
+  const videoNow = document.getElementById('videoNow');
+
+  function markRoom(hotspot) {
+    fpStage.classList.add('fp-used');
+    document.querySelectorAll('.fp-hotspot.fp-active').forEach(h => h.classList.remove('fp-active'));
+    hotspot.classList.add('fp-active');
+    if (videoNow) {
+      videoNow.classList.add('playing');
+      videoNow.innerHTML = '<i class="fas fa-play"></i><span>Now playing: <b></b></span>';
+      videoNow.querySelector('b').textContent = hotspot.getAttribute('aria-label');
+    }
+    const wrap = document.querySelector('#demo-unit .video-wrap');
+    if (wrap) { wrap.classList.remove('fp-flash'); void wrap.offsetWidth; wrap.classList.add('fp-flash'); }
+  }
+
   document.querySelectorAll('.fp-hotspot').forEach(hotspot => {
     hotspot.addEventListener('click', (e) => {
       e.stopPropagation();
       const seconds = parseInt(hotspot.dataset.time, 10);
+      markRoom(hotspot);
       if (!isAppView()) expandVideo();
       seekDemo(seconds);
     });
   });
+
+  if (fpStage && 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const waveObs = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      waveObs.disconnect();
+      Array.from(fpStage.querySelectorAll('.fp-hotspot'))
+        .sort((a, b) => a.offsetLeft - b.offsetLeft)
+        .forEach((h, i) => {
+          setTimeout(() => {
+            if (fpStage.classList.contains('fp-used')) return;
+            h.classList.add('fp-wave');
+            setTimeout(() => h.classList.remove('fp-wave'), 650);
+          }, 250 + i * 110);
+        });
+    }, { threshold: 0.6 });
+    waveObs.observe(fpStage);
+  }
 
   if (floorplanCol) {
     floorplanCol.addEventListener('click', () => {
