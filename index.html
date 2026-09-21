@@ -421,6 +421,8 @@
     .nav-logo{font-size:1rem; white-space:nowrap;}
     .nav-cta{width:36px; height:36px; padding:0; justify-content:center; border-radius:50%; font-size:1.15rem;}
     .nav-cta-text{display:none;}
+    .nav-cta{position:relative;}
+    .nav-cta::after{content:''; position:absolute; inset:-8px;}
 
     /* One screen at a time */
     [data-mtab]{display:none !important;}
@@ -511,19 +513,151 @@
     .mobile-nav-item.active i{filter:drop-shadow(0 0 8px rgba(212,175,55,0.6));}
   }
 
-  /* Phones in landscape: compact chrome, floorplan and video side by side */
+  .page-dots{display:none;}
+
+  /* Phones in landscape: every tab is ONE fixed, fully visible screen (no downward
+     scrolling). Content that cannot share the screen becomes a swipe-sideways page. */
   @media (max-height:550px) and (orientation:landscape){
-    :root{--app-hdr:40px;}
-    body{padding-bottom:calc(48px + env(safe-area-inset-bottom,0px));}
+    :root{--app-hdr:40px; --bar-h:42px; --sab:env(safe-area-inset-bottom,0px); --pane:calc(100vh - var(--app-hdr) - var(--bar-h) - var(--sab));}
+    @supports (height:100dvh){ :root{--pane:calc(100dvh - var(--app-hdr) - var(--bar-h) - var(--sab));} }
+
+    html{height:100%; overflow:hidden;}
+    body{display:flex; flex-direction:row; height:100vh; height:100dvh; padding:var(--app-hdr) 0 calc(var(--bar-h) + var(--sab)); overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior:contain; scrollbar-width:none;}
+    body::-webkit-scrollbar{display:none;}
+
     .nav-cta{width:30px; height:30px; font-size:1rem;}
-    .hero{padding:1rem 2rem;}
-    .fp-video-grid, .fp-video-grid.expanded{display:grid; grid-template-columns:1.2fr 1fr; align-items:start; gap:1rem;}
-    .video-col{order:0; margin:0; padding:0; border:none; background:transparent; top:calc(var(--app-hdr) + .5rem);}
-    .gallery-grid, .amen-grid{grid-template-columns:repeat(4,1fr);}
-    .mobile-app-bottom-nav{height:calc(42px + env(safe-area-inset-bottom,0px));}
+    .page-dots{display:flex; gap:6px; align-items:center;}
+    .page-dots i{width:6px; height:6px; border-radius:50%; background:rgba(245,241,232,0.28); transition:background .2s, transform .2s;}
+    .page-dots i.on{background:var(--gold-soft); transform:scale(1.35);}
+    .mobile-app-bottom-nav{height:calc(var(--bar-h) + var(--sab));}
     .mobile-nav-item{flex-direction:row; gap:6px; max-width:none; padding:.2rem;}
     .mobile-nav-item i{font-size:1rem;}
     .mobile-nav-label{font-size:.7rem;}
+
+    /* Each visible screen is exactly one pane tall */
+    [data-mtab].mob-active{flex:0 0 100vw; width:100vw; height:var(--pane); min-width:0; padding:.4rem 1rem !important; overflow-x:hidden; overflow-y:auto; scroll-snap-align:start; background:transparent;}
+    footer[data-mtab]{display:none !important;}
+    .sec-eyebrow{margin-bottom:.15rem; font-size:.6rem;}
+    .sec-title{font-size:1.05rem; margin-bottom:.35rem;}
+    .sec-desc{display:none;}
+
+    /* Home: hero + stats share one screen, overview is the second page */
+    .hero[data-mtab].mob-active{flex:0 0 54vw; width:54vw; padding:.4rem .75rem .4rem 1.25rem !important; align-items:center;}
+    .hero[data-mtab].mob-active{overflow:hidden;}
+    .hero::after{display:none;}
+    .hero-inner{max-width:none;}
+    .hero-eyebrow{font-size:.56rem; padding:.28rem .65rem; margin-bottom:.6rem;}
+    .hero-title{font-size:clamp(1.5rem,8.2vh,2.2rem); margin-bottom:.3rem;}
+    .hero-sub{font-size:.76rem; margin-bottom:.8rem; line-height:1.45;}
+    .cta-row .btn{padding:.6rem .4rem; font-size:.8rem;}
+    .stats-strip[data-mtab].mob-active{flex:0 0 46vw; width:46vw; max-width:none; margin:0; padding:.5rem 1.25rem .5rem .25rem !important; grid-template-columns:repeat(2,1fr); grid-auto-rows:1fr; align-content:center; gap:.5rem; scroll-snap-align:none; overflow:hidden;}
+    .stat{display:flex; flex-direction:column; justify-content:center; padding:.3rem;}
+    .stat-val{font-size:1.1rem;}
+    #about .about-grid{grid-template-columns:1fr 1.1fr; gap:1rem; align-items:start;}
+    #about .highlight-list{display:grid; grid-template-columns:1fr 1fr; align-content:start;}
+    #about .sec-eyebrow{display:none;}
+    #about .about-text{font-size:.72rem; line-height:1.5;}
+    #about .about-text p+p{margin-top:.5rem;}
+    #about .rera-chip{margin-top:.6rem; font-size:.6rem; padding:.35rem .6rem;}
+    .highlight-list{gap:.4rem;}
+    .hl-item{padding:.4rem .6rem; gap:.6rem;}
+    .hl-icon{width:26px; height:26px; font-size:.75rem;}
+    .hl-t{font-size:.72rem;}
+    .hl-d{font-size:.62rem; margin-top:0;}
+
+    /* Plan: page 1 floorplan + demo video, page 2 room sizes, page 3 master plan */
+    #floorplan[data-mtab].mob-active{padding:0 !important; overflow:hidden;}
+    #floorplan .wrap{display:flex; height:100%; max-width:none; overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; scrollbar-width:none;}
+    #floorplan .wrap::-webkit-scrollbar{display:none;}
+    #floorplan .wrap > .sec-eyebrow, #floorplan .wrap > .sec-title, #floorplan .wrap > .floorplan-hint{display:none;}
+    #floorplan .wrap > [data-page]{flex:0 0 100%; width:100%; height:100%; margin:0; padding:.4rem 1rem; scroll-snap-align:start;}
+    #floorplan .fp-video-grid, #floorplan .fp-video-grid.expanded{display:grid; grid-template-columns:auto 1fr; gap:.9rem; align-items:center;}
+    .floorplan-col{min-width:0;}
+    .floorplan-img{width:fit-content; max-width:100%; padding:.25rem; margin:0 0 .25rem; border-radius:.7rem;}
+    .floorplan-stage{width:min(56vw, calc((var(--pane) - 52px) * 1.555)); height:auto; aspect-ratio:2995/1926;}
+    .floorplan-img img{width:100%; height:100%; aspect-ratio:auto;}
+    .plain-floorplan-link{font-size:.64rem;}
+    .video-col{position:static; order:0; margin:0; padding:0; border:none; background:transparent; backdrop-filter:none;}
+    .video-col-label{display:block; font-size:.66rem; margin-bottom:.3rem;}
+    .video-col-label::after{content:" \00b7  tap a room on the plan"; color:var(--text-3); font-weight:500;}
+    #floorplan .rooms-wrap-scroll{display:flex; align-items:center; overflow:hidden;}
+    .rooms-table, .rooms-table tbody{display:block; width:100%; border:none;}
+    .rooms-table thead{display:none;}
+    .rooms-table tbody{display:grid; grid-template-columns:1fr 1fr; column-gap:1.25rem;}
+    .rooms-table tr{display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border);}
+    .rooms-table td{border:none !important; padding:.4rem .5rem !important; font-size:.74rem !important;}
+    #floorplan .master-plan-block{display:flex; flex-direction:column; align-items:center; justify-content:center; overflow:hidden;}
+    .master-plan-block .sec-eyebrow{display:none;}
+    .master-plan-block h3{font-size:.85rem !important; margin:0 0 .3rem !important;}
+    .master-plan-img{max-width:none; height:calc(var(--pane) - 56px); display:flex; justify-content:center; border-radius:.7rem; box-shadow:none;}
+    .master-plan-img img{height:100%; width:auto; max-width:100%; object-fit:contain;}
+
+    /* Photos: two rows that slide sideways */
+    #gallery[data-mtab].mob-active{padding:0 !important; overflow:hidden;}
+    #gallery .wrap{display:flex; gap:1.25rem; height:100%; max-width:none; padding:.4rem 1rem; overflow-x:auto; overflow-y:hidden; overscroll-behavior-x:contain; scrollbar-width:none;}
+    #gallery .wrap::-webkit-scrollbar{display:none;}
+    #gallery .wrap > .sec-eyebrow, #gallery .wrap > .sec-title{display:none;}
+    .gallery-group{flex:0 0 auto; display:flex; flex-direction:column; height:100%; margin:0;}
+    .gallery-group-title{font-size:.78rem; margin:0 0 .3rem;}
+    .gallery-grid{flex:1 1 auto; min-height:0; display:grid; grid-auto-flow:column; grid-template-columns:none; grid-template-rows:repeat(2,1fr); grid-auto-columns:calc((var(--pane) - 44px) / 2 * 1.333); gap:.35rem;}
+    .gallery-thumb{aspect-ratio:auto; width:100%; height:100%;}
+
+    /* Project: one card per page */
+    #walkthrough[data-mtab].mob-active{display:flex !important; align-items:center; justify-content:center;}
+    #walkthrough .wrap{width:100%; display:flex; justify-content:center;}
+    #walkthrough .wrap > .sec-eyebrow, #walkthrough .wrap > .sec-title{display:none;}
+    #walkthrough .video-wrap{height:calc(var(--pane) - 16px); aspect-ratio:16/9; width:auto; max-width:100%;}
+    #walkthrough .video-wrap iframe{width:100%; height:100%; aspect-ratio:auto;}
+    .amen-grid{grid-template-columns:repeat(4,1fr); gap:.4rem;}
+    .amen-card{padding:.5rem .3rem; border-radius:.7rem;}
+    .amen-icon{font-size:1rem; margin-bottom:.2rem;}
+    .amen-name{font-size:.68rem;}
+    #location .wrap > div:not(.sec-eyebrow){height:calc(var(--pane) - 68px); display:flex; justify-content:center; box-shadow:none !important;}
+    #location .wrap > div:not(.sec-eyebrow) img{width:auto !important; height:100%; max-width:100%; object-fit:contain;}
+    .specs-grid{grid-template-columns:repeat(4,1fr); gap:.5rem;}
+    .spec-card{padding:.7rem;}
+    .spec-name{font-size:.6rem; margin-bottom:.4rem;}
+    .spec-ul{gap:.25rem;}
+    .spec-ul li{font-size:.66rem; line-height:1.4;}
+
+    /* Contact: brochure and contact share one screen */
+    #brochure[data-mtab].mob-active{flex:0 0 38vw; width:38vw; display:flex !important; align-items:center; padding:.4rem .75rem .4rem 1.25rem !important;}
+    #contact[data-mtab].mob-active{flex:0 0 62vw; width:62vw; display:flex !important; align-items:center; scroll-snap-align:none; padding:.4rem 1.25rem .4rem .5rem !important;}
+    #brochure .wrap, #contact .wrap{width:100%;}
+    #brochure .wrap > .sec-eyebrow, #brochure .wrap > .sec-title{display:none;}
+    .brochure-panel{flex-direction:column; align-items:flex-start; padding:.9rem; gap:.5rem; border-radius:1rem;}
+    .brochure-icon{width:40px; height:40px; font-size:1.1rem; border-radius:.7rem;}
+    .brochure-text{min-width:0;}
+    .brochure-text h3{font-size:.9rem;}
+    .brochure-text p{font-size:.68rem;}
+    .brochure-actions .btn{padding:.55rem .9rem; font-size:.78rem;}
+    .contact-grid{grid-template-columns:1fr; gap:.35rem; margin-bottom:.4rem;}
+    .contact-link{padding:.45rem .75rem; gap:.65rem; border-radius:.8rem;}
+    .c-icon{width:28px; height:28px; font-size:.8rem;}
+    .c-lbl{font-size:.58rem;}
+    .c-val{font-size:.78rem;}
+    .disclaimer{margin-top:.4rem; padding-top:.4rem; font-size:.56rem; line-height:1.35;}
+  }
+
+  /* Shorter landscape phones (iPhone SE / small Android): tighten further */
+  @media (max-height:400px) and (orientation:landscape){
+    .sec-title{font-size:.95rem; margin-bottom:.25rem;}
+    .hero-title{font-size:clamp(1.3rem,8vh,1.8rem);}
+    .hero-sub{margin-bottom:.55rem;}
+    #about .about-text{font-size:.68rem; line-height:1.42;}
+    #about .about-text p+p{margin-top:.35rem;}
+    .hl-item{padding:.28rem .5rem;}
+    .hl-icon{width:22px; height:22px; font-size:.65rem;}
+    .spec-card{padding:.5rem;}
+    .spec-ul{gap:.15rem;}
+    .spec-ul li{font-size:.62rem; line-height:1.3;}
+    .contact-link{padding:.3rem .65rem;}
+    .c-icon{width:24px; height:24px;}
+    .disclaimer{font-size:.52rem; margin-top:.25rem; padding-top:.25rem;}
+    .brochure-panel{padding:.7rem;}
+  }
+  @media (max-height:400px) and (max-width:720px) and (orientation:landscape){
+    #about .about-text p:nth-child(2){display:none;}
   }
 </style>
 </head>
@@ -531,6 +665,7 @@
 
 <nav>
   <div class="nav-logo">SOBHA INSIGNIA</div>
+  <div class="page-dots" id="pageDots" aria-hidden="true"></div>
   <ul class="nav-links">
     <li><a href="#about">Overview</a></li>
     <li><a href="#floorplan">Floorplan</a></li>
@@ -544,7 +679,7 @@
   <a class="nav-cta" href="https://wa.me/918921658093?text=Hi%2C%20I%27m%20interested%20in%20your%20listing%20at%20Sobha%20Insignia" target="_blank" aria-label="Enquire on WhatsApp"><i class="fab fa-whatsapp"></i> <span class="nav-cta-text">Enquire</span></a>
 </nav>
 
-<section class="hero" data-mtab="home">
+<section class="hero" data-mtab="home" data-page>
   <div class="hero-inner">
     <div class="hero-eyebrow"><i class="fas fa-key"></i> For Sale &middot; By Owner &middot; Ready Aug 2026</div>
     <h1 class="hero-title">Sobha Insignia<br><span class="accent">For Sale</span></h1>
@@ -569,7 +704,7 @@
   <div class="stat"><div class="stat-val">2026</div><div class="stat-lbl">Handover</div></div>
 </div>
 
-<section id="about" data-mtab="home">
+<section id="about" data-mtab="home" data-page>
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Overview</div>
     <h2 class="sec-title fade-in">A Signature Sobha Address on the ORR</h2>
@@ -614,7 +749,7 @@
     <p class="sec-desc fade-in">Official architectural plan &mdash; 3.5&nbsp;BHK + study/home office, from the registered Agreement for Sale.</p>
     <p class="floorplan-hint fade-in"><i class="fas fa-circle-play"></i> Tap or click a room to jump the demo walkthrough video to that part of the house.</p>
 
-    <div class="fp-video-grid" id="fpVideoGrid">
+    <div class="fp-video-grid" id="fpVideoGrid" data-page>
       <div class="floorplan-col fade-in" id="floorplanCol">
         <div class="floorplan-img">
           <div class="floorplan-stage" id="floorplanStage">
@@ -648,7 +783,7 @@
       </div>
     </div>
 
-    <div class="rooms-wrap-scroll fade-in">
+    <div class="rooms-wrap-scroll fade-in" data-page>
       <table class="rooms-table">
         <thead><tr><th>Room</th><th>Dimensions</th></tr></thead>
         <tbody>
@@ -669,7 +804,7 @@
       </table>
     </div>
 
-    <div class="master-plan-block fade-in">
+    <div class="master-plan-block fade-in" data-page>
       <div class="sec-eyebrow" style="margin-top:3rem;">Site Master Plan</div>
       <h3 style="font-size:1.3rem; font-weight:700; margin-bottom:1.25rem;">Where Wing 1 Sits on the Boulevard</h3>
       <div class="master-plan-img">
@@ -679,7 +814,7 @@
   </div>
 </section>
 
-<section id="amenities" data-mtab="project">
+<section id="amenities" data-mtab="project" data-page>
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Amenities</div>
     <h2 class="sec-title fade-in">Project Amenities</h2>
@@ -701,7 +836,7 @@
   </div>
 </section>
 
-<section id="location" data-mtab="project">
+<section id="location" data-mtab="project" data-page>
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Location</div>
     <h2 class="sec-title fade-in">Nearby Corporate Parks, Hospitals &amp; Colleges</h2>
@@ -779,7 +914,7 @@
   <div class="lightbox-btn lightbox-nav lightbox-next" id="lightboxNext"><i class="fas fa-chevron-right"></i></div>
 </div>
 
-<section id="specs" data-mtab="project">
+<section id="specs" data-mtab="project" data-page>
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Specifications</div>
     <h2 class="sec-title fade-in">Built to Sobha's Signature Standard</h2>
@@ -820,7 +955,7 @@
   </div>
 </section>
 
-<section id="walkthrough" data-mtab="project">
+<section id="walkthrough" data-mtab="project" data-page>
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Walkthrough</div>
     <h2 class="sec-title fade-in">Project Walkthrough</h2>
@@ -831,7 +966,7 @@
   </div>
 </section>
 
-<section id="brochure" data-mtab="contact">
+<section id="brochure" data-mtab="contact" data-page>
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Documentation</div>
     <h2 class="sec-title fade-in">Project Brochure</h2>
@@ -1005,15 +1140,40 @@
   };
   const mobTabBtns = document.querySelectorAll('.mobile-nav-item');
 
+  const LANDSCAPE_QUERY = '(max-height:550px) and (orientation:landscape)';
+  const dotsEl = document.getElementById('pageDots');
+
+  function updateDots() {
+    if (!dotsEl) return;
+    const pages = window.matchMedia(LANDSCAPE_QUERY).matches
+      ? Array.from(document.querySelectorAll('[data-page]'))
+          .filter(el => el.closest('.mob-active') && el.getClientRects().length)
+          .sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left)
+      : [];
+    if (pages.length < 2) { dotsEl.innerHTML = ''; return; }
+    let idx = 0, best = Infinity;
+    pages.forEach((p, i) => {
+      const d = Math.abs(p.getBoundingClientRect().left);
+      if (d < best) { best = d; idx = i; }
+    });
+    if (dotsEl.children.length !== pages.length) dotsEl.innerHTML = pages.map(() => '<i></i>').join('');
+    Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle('on', i === idx));
+  }
+  document.addEventListener('scroll', updateDots, true);
+  window.addEventListener('resize', updateDots);
+
   function setMobTab(tab) {
     document.querySelectorAll('[data-mtab]').forEach(el => el.classList.toggle('mob-active', el.dataset.mtab === tab));
     mobTabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+    document.body.scrollLeft = 0;
+    document.querySelectorAll('#floorplan .wrap, #gallery .wrap').forEach(w => { w.scrollLeft = 0; });
+    requestAnimationFrame(updateDots);
   }
 
   function openMobTab(tab, sectionId) {
     setMobTab(tab);
     const target = sectionId && sectionId !== tab ? document.getElementById(sectionId) : null;
-    if (target) target.scrollIntoView({ behavior: 'instant' });
+    if (target) target.scrollIntoView({ behavior: 'instant', block: 'start', inline: 'start' });
     else window.scrollTo({ top: 0, behavior: 'instant' });
     try { history.replaceState(null, '', '#' + (sectionId || tab)); } catch (err) {}
   }
@@ -1040,7 +1200,8 @@
     });
   }
 
-  window.matchMedia(APP_VIEW_QUERY).addEventListener('change', (e) => { if (e.matches) collapseVideo(); });
+  window.matchMedia(APP_VIEW_QUERY).addEventListener('change', (e) => { if (e.matches) collapseVideo(); updateDots(); });
+  window.matchMedia(LANDSCAPE_QUERY).addEventListener('change', () => { requestAnimationFrame(updateDots); });
 
   document.querySelectorAll('a[href="#demo-unit"]').forEach(link => {
     link.addEventListener('click', (e) => {
