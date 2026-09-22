@@ -457,11 +457,12 @@
      landscape. One screen per bottom tab; desktop is untouched.
      =========================================================== */
   .mobile-app-bottom-nav{display:none;}
+  .mobile-subnav{display:none;}
 
   @media (max-width:768px), (max-height:550px) and (orientation:landscape){
-    :root{--app-hdr:50px;}
+    :root{--app-hdr:50px; --subnav-h:40px;}
     html{-webkit-tap-highlight-color:transparent;}
-    body{display:flex; flex-direction:column; padding-top:var(--app-hdr); padding-bottom:calc(66px + env(safe-area-inset-bottom,0px)); overflow-x:clip;}
+    body{display:flex; flex-direction:column; padding-top:calc(var(--app-hdr) + var(--subnav-h)); padding-bottom:calc(66px + env(safe-area-inset-bottom,0px)); overflow-x:clip;}
     .stats-strip{width:100%;}
     #walkthrough{order:-1;}
     button{touch-action:manipulation;}
@@ -474,6 +475,30 @@
     .nav-cta-text{display:none;}
     .nav-cta{position:relative;}
     .nav-cta::after{content:''; position:absolute; inset:-8px;}
+
+    /* Contents bar: shows what's in the current tab, lets you jump straight to it */
+    .mobile-subnav{
+      display:flex; align-items:center; gap:.4rem;
+      position:fixed; top:var(--app-hdr); left:0; right:0; z-index:180;
+      height:var(--subnav-h); padding:0 .75rem;
+      overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none;
+      background:rgba(10,9,8,0.94); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--border);
+    }
+    .mobile-subnav::-webkit-scrollbar{display:none;}
+    .subnav-chip{
+      flex:0 0 auto; display:inline-flex; align-items:center; gap:.4rem;
+      padding:.32rem .75rem; border-radius:999px; white-space:nowrap;
+      font-size:.7rem; font-weight:600; letter-spacing:.01em; color:var(--text-2);
+      background:rgba(255,255,255,0.05); border:1px solid var(--border);
+      cursor:pointer; font-family:inherit; touch-action:manipulation;
+    }
+    .subnav-chip .subnav-dot{width:5px; height:5px; border-radius:50%; background:currentColor; opacity:.55; flex-shrink:0;}
+    .subnav-chip.active{
+      color:#1a1305; background:linear-gradient(135deg,var(--gold-soft),var(--gold));
+      border-color:transparent; font-weight:700;
+    }
+    .subnav-chip.active .subnav-dot{opacity:1;}
 
     /* One screen at a time */
     [data-mtab]{display:none !important;}
@@ -511,7 +536,7 @@
     /* Plan: demo video pinned on top, floorplan below so a tapped room is seen playing */
     .floorplan-hint{margin-bottom:.9rem;}
     .fp-video-grid, .fp-video-grid.expanded{display:flex; flex-direction:column; align-items:stretch; gap:.7rem; margin-bottom:1.5rem;}
-    .video-col{order:-1; position:sticky; top:var(--app-hdr); z-index:20; margin:0 -1rem; padding:.55rem 1rem; background:rgba(10,9,8,0.97); backdrop-filter:blur(14px); border-bottom:1px solid var(--border);}
+    .video-col{order:-1; position:sticky; top:calc(var(--app-hdr) + var(--subnav-h)); z-index:20; margin:0 -1rem; padding:.55rem 1rem; background:rgba(10,9,8,0.97); backdrop-filter:blur(14px); border-bottom:1px solid var(--border);}
     .video-col-label{display:none;}
     .video-col .video-wrap{border-radius:.9rem; box-shadow:none;}
     .floorplan-img{padding:.35rem; border-radius:.9rem; margin-inline:-.35rem;}
@@ -569,13 +594,15 @@
   /* Phones in landscape: every tab is ONE fixed, fully visible screen (no downward
      scrolling). Content that cannot share the screen becomes a swipe-sideways page. */
   @media (max-height:550px) and (orientation:landscape){
-    :root{--app-hdr:40px; --bar-h:42px; --sab:env(safe-area-inset-bottom,0px); --pane:calc(100vh - var(--app-hdr) - var(--bar-h) - var(--sab));}
-    @supports (height:100dvh){ :root{--pane:calc(100dvh - var(--app-hdr) - var(--bar-h) - var(--sab));} }
+    :root{--app-hdr:40px; --subnav-h:34px; --bar-h:42px; --sab:env(safe-area-inset-bottom,0px); --pane:calc(100vh - var(--app-hdr) - var(--subnav-h) - var(--bar-h) - var(--sab));}
+    @supports (height:100dvh){ :root{--pane:calc(100dvh - var(--app-hdr) - var(--subnav-h) - var(--bar-h) - var(--sab));} }
 
     html{height:100%; overflow:hidden;}
-    body{display:flex; flex-direction:row; height:100vh; height:100dvh; padding:var(--app-hdr) 0 calc(var(--bar-h) + var(--sab)); overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior:contain; scrollbar-width:none;}
+    body{display:flex; flex-direction:row; height:100vh; height:100dvh; padding:calc(var(--app-hdr) + var(--subnav-h)) 0 calc(var(--bar-h) + var(--sab)); overflow-x:auto; overflow-y:hidden; scroll-snap-type:x mandatory; overscroll-behavior:contain; scrollbar-width:none;}
     body::-webkit-scrollbar{display:none;}
 
+    .mobile-subnav{height:var(--subnav-h); padding:0 .6rem;}
+    .subnav-chip{padding:.24rem .6rem; font-size:.64rem;}
     .nav-cta{width:30px; height:30px; font-size:1rem;}
     .page-dots{display:flex; gap:6px; align-items:center;}
     .page-dots i{width:6px; height:6px; border-radius:50%; background:rgba(245,241,232,0.28); transition:background .2s, transform .2s;}
@@ -631,6 +658,7 @@
     .video-col{position:static; order:0; margin:0; padding:0; border:none; background:transparent; backdrop-filter:none;}
     .video-col-label{display:block; font-size:.66rem; margin-bottom:.3rem;}
     .video-now{font-size:.66rem; margin-top:.3rem;}
+    #floorplan .video-col .video-wrap{height:calc(var(--pane) - 68px); width:calc((var(--pane) - 68px) * 16 / 9); max-width:100%; margin:0 auto;}
     #floorplan .rooms-wrap-scroll{display:flex; align-items:center; overflow:hidden;}
     .rooms-table, .rooms-table tbody{display:block; width:100%; border:none;}
     .rooms-table thead{display:none;}
@@ -695,19 +723,27 @@
     .sec-title{font-size:.95rem; margin-bottom:.25rem;}
     .hero-title{font-size:clamp(1.3rem,8vh,1.8rem);}
     .hero-sub{margin-bottom:.55rem;}
-    #about .about-text{font-size:.68rem; line-height:1.42;}
-    #about .about-text p+p{margin-top:.35rem;}
-    .hl-item{padding:.28rem .5rem;}
-    .hl-icon{width:22px; height:22px; font-size:.65rem;}
+    #about .about-text{font-size:.68rem; line-height:1.38;}
+    #about .about-text p+p{margin-top:.25rem;}
+    #about .rera-chip{margin-top:.35rem; padding:.25rem .5rem;}
+    .highlight-list{gap:.22rem;}
+    .hl-item{padding:.2rem .5rem; gap:.5rem;}
+    .hl-icon{width:18px; height:18px; font-size:.58rem; border-radius:.4rem;}
+    .hl-t{font-size:.64rem;}
+    .hl-d{font-size:.54rem; margin-top:0;}
     .spec-card{padding:.5rem;}
     .spec-ul{gap:.15rem;}
     .spec-ul li{font-size:.62rem; line-height:1.3;}
     .contact-link{padding:.3rem .65rem;}
     .c-icon{width:24px; height:24px;}
-    .disclaimer{font-size:.52rem; margin-top:.25rem; padding-top:.25rem;}
+    .disclaimer{font-size:.52rem; margin-top:.25rem; padding-top:.25rem; -webkit-line-clamp:2; display:-webkit-box; -webkit-box-orient:vertical; overflow:hidden;}
     .brochure-panel{padding:.7rem;}
+    .amen-grid{gap:.3rem;}
+    .amen-card{padding:.35rem .2rem;}
+    .amen-icon{font-size:.85rem; margin-bottom:.1rem;}
+    .amen-name{font-size:.6rem;}
   }
-  @media (max-height:400px) and (max-width:720px) and (orientation:landscape){
+  @media (max-height:400px) and (max-width:760px) and (orientation:landscape){
     #about .about-text p:nth-child(2){display:none;}
   }
 </style>
@@ -730,7 +766,9 @@
   <a class="nav-cta" href="https://wa.me/918921658093?text=Hi%2C%20I%27m%20interested%20in%20your%20listing%20at%20Sobha%20Insignia" target="_blank" aria-label="Enquire on WhatsApp"><i class="fab fa-whatsapp"></i> <span class="nav-cta-text">Enquire</span></a>
 </nav>
 
-<section class="hero" data-mtab="home" data-page>
+<div class="mobile-subnav" id="mobileSubnav" role="navigation" aria-label="Section contents"></div>
+
+<section class="hero" data-mtab="home" data-page data-page-label="Highlights">
   <div class="hero-inner">
     <div class="hero-eyebrow"><i class="fas fa-key"></i> For Sale &middot; By Owner &middot; Ready Aug 2026</div>
     <h1 class="hero-title">Sobha Insignia<br><span class="accent">For Sale</span></h1>
@@ -755,7 +793,7 @@
   <div class="stat"><div class="stat-val">2026</div><div class="stat-lbl">Handover</div></div>
 </div>
 
-<section id="about" data-mtab="home" data-page>
+<section id="about" data-mtab="home" data-page data-page-label="Overview">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Overview</div>
     <h2 class="sec-title fade-in">A Signature Sobha Address on the ORR</h2>
@@ -800,7 +838,7 @@
     <p class="sec-desc fade-in">Official architectural plan &mdash; 3.5&nbsp;BHK + study/home office, from the registered Agreement for Sale.</p>
     <p class="floorplan-hint fade-in"><i class="fas fa-hand-pointer"></i> Select any room on the plan to watch its video tour</p>
 
-    <div class="fp-video-grid" id="fpVideoGrid" data-page>
+    <div class="fp-video-grid" id="fpVideoGrid" data-page data-page-label="Floorplan">
       <div class="floorplan-col fade-in" id="floorplanCol">
         <div class="floorplan-img">
           <div class="floorplan-stage" id="floorplanStage">
@@ -835,7 +873,7 @@
       </div>
     </div>
 
-    <div class="rooms-wrap-scroll fade-in" data-page>
+    <div class="rooms-wrap-scroll fade-in" data-page data-page-label="Room Sizes">
       <table class="rooms-table">
         <thead><tr><th>Room</th><th>Dimensions</th></tr></thead>
         <tbody>
@@ -856,7 +894,7 @@
       </table>
     </div>
 
-    <div class="master-plan-block fade-in" data-page>
+    <div class="master-plan-block fade-in" data-page data-page-label="Site Plan">
       <div class="sec-eyebrow" style="margin-top:3rem;">Site Master Plan</div>
       <h3 style="font-size:1.3rem; font-weight:700; margin-bottom:1.25rem;">Where Wing 1 Sits on the Boulevard</h3>
       <div class="master-plan-img">
@@ -866,7 +904,7 @@
   </div>
 </section>
 
-<section id="amenities" data-mtab="project" data-page>
+<section id="amenities" data-mtab="project" data-page data-page-label="Amenities">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Amenities</div>
     <h2 class="sec-title fade-in">Project Amenities</h2>
@@ -888,7 +926,7 @@
   </div>
 </section>
 
-<section id="location" data-mtab="project" data-page>
+<section id="location" data-mtab="project" data-page data-page-label="Location">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Location</div>
     <h2 class="sec-title fade-in">Nearby Corporate Parks, Hospitals &amp; Colleges</h2>
@@ -905,7 +943,7 @@
     <h2 class="sec-title fade-in">See the Space</h2>
     <p class="sec-desc fade-in">Real photos of the unit and the Sobha Insignia common areas.</p>
 
-    <div class="gallery-group fade-in">
+    <div class="gallery-group fade-in" data-page data-page-label="Indoor">
       <div class="gallery-group-title">Indoor</div>
       <div class="gallery-grid">
         <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-01.jpg" loading="lazy" alt="Indoor photo 1"></div>
@@ -930,7 +968,7 @@
         <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-20.jpg" loading="lazy" alt="Indoor photo 20"></div>      </div>
     </div>
 
-    <div class="gallery-group fade-in">
+    <div class="gallery-group fade-in" data-page data-page-label="Common Areas">
       <div class="gallery-group-title">Common Areas</div>
       <div class="gallery-grid">
         <div class="gallery-thumb"><img src="assets/gallery/common/common-01.jpg" loading="lazy" alt="Sobha Insignia common area photo 1"></div>
@@ -966,7 +1004,7 @@
   <div class="lightbox-btn lightbox-nav lightbox-next" id="lightboxNext"><i class="fas fa-chevron-right"></i></div>
 </div>
 
-<section id="specs" data-mtab="project" data-page>
+<section id="specs" data-mtab="project" data-page data-page-label="Specs">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Specifications</div>
     <h2 class="sec-title fade-in">Built to Sobha's Signature Standard</h2>
@@ -1007,7 +1045,7 @@
   </div>
 </section>
 
-<section id="walkthrough" data-mtab="project" data-page>
+<section id="walkthrough" data-mtab="project" data-page data-page-label="Video">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Walkthrough</div>
     <h2 class="sec-title fade-in">Project Walkthrough</h2>
@@ -1018,7 +1056,7 @@
   </div>
 </section>
 
-<section id="brochure" data-mtab="contact" data-page>
+<section id="brochure" data-mtab="contact" data-page data-page-label="Brochure">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Documentation</div>
     <h2 class="sec-title fade-in">Project Brochure</h2>
@@ -1035,7 +1073,7 @@
   </div>
 </section>
 
-<section id="contact" data-mtab="contact">
+<section id="contact" data-mtab="contact" data-page data-page-label="Get in Touch">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Get in Touch</div>
     <h2 class="sec-title fade-in">Interested? Let's Talk.</h2>
@@ -1228,10 +1266,19 @@
 
   const LANDSCAPE_QUERY = '(max-height:550px) and (orientation:landscape)';
   const dotsEl = document.getElementById('pageDots');
+  const subnavEl = document.getElementById('mobileSubnav');
+  let subnavPages = [];
+
+  function currentTabPages() {
+    return Array.from(document.querySelectorAll('[data-page]'))
+      .filter(el => el.closest('.mob-active') && el.getClientRects().length)
+      .sort((a, b) => (parseInt(getComputedStyle(a).order, 10) || 0) - (parseInt(getComputedStyle(b).order, 10) || 0));
+  }
 
   function updateDots() {
     if (!dotsEl) return;
-    const pages = window.matchMedia(LANDSCAPE_QUERY).matches
+    const landscape = window.matchMedia(LANDSCAPE_QUERY).matches;
+    const pages = landscape
       ? Array.from(document.querySelectorAll('[data-page]'))
           .filter(el => el.closest('.mob-active') && el.getClientRects().length)
           .sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left)
@@ -1245,15 +1292,54 @@
     if (dotsEl.children.length !== pages.length) dotsEl.innerHTML = pages.map(() => '<i></i>').join('');
     Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle('on', i === idx));
   }
-  document.addEventListener('scroll', updateDots, true);
-  window.addEventListener('resize', updateDots);
+
+  function buildSubnav() {
+    if (!subnavEl) return;
+    subnavPages = currentTabPages();
+    subnavEl.innerHTML = subnavPages.map((el, i) =>
+      '<button type="button" class="subnav-chip" data-idx="' + i + '"><span class="subnav-dot"></span>' +
+      (el.dataset.pageLabel || ('Section ' + (i + 1))) + '</button>'
+    ).join('');
+    Array.from(subnavEl.children).forEach((chip, i) => {
+      chip.addEventListener('click', () => {
+        const landscape = window.matchMedia(LANDSCAPE_QUERY).matches;
+        subnavPages[i].scrollIntoView({
+          behavior: 'smooth',
+          block: landscape ? 'nearest' : 'start',
+          inline: landscape ? 'start' : 'nearest'
+        });
+      });
+    });
+    updateSubnavActive();
+  }
+
+  function updateSubnavActive() {
+    if (!subnavEl || !subnavPages.length) return;
+    const landscape = window.matchMedia(LANDSCAPE_QUERY).matches;
+    const headerOffset = landscape ? 0 : (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--app-hdr')) || 0) +
+      (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--subnav-h')) || 0) + 8;
+    let idx = 0, best = Infinity;
+    subnavPages.forEach((p, i) => {
+      const r = p.getBoundingClientRect();
+      const d = landscape ? Math.abs(r.left) : Math.abs(r.top - headerOffset);
+      if (d < best) { best = d; idx = i; }
+    });
+    const chips = Array.from(subnavEl.children);
+    chips.forEach((c, i) => c.classList.toggle('active', i === idx));
+    const activeChip = chips[idx];
+    if (activeChip) activeChip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+
+  function updatePagingUI() { updateDots(); updateSubnavActive(); }
+  document.addEventListener('scroll', updatePagingUI, true);
+  window.addEventListener('resize', updatePagingUI);
 
   function setMobTab(tab) {
     document.querySelectorAll('[data-mtab]').forEach(el => el.classList.toggle('mob-active', el.dataset.mtab === tab));
     mobTabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
     document.body.scrollLeft = 0;
     document.querySelectorAll('#floorplan .wrap, #gallery .wrap').forEach(w => { w.scrollLeft = 0; });
-    requestAnimationFrame(updateDots);
+    requestAnimationFrame(() => { updateDots(); buildSubnav(); });
   }
 
   function openMobTab(tab, sectionId) {
@@ -1286,8 +1372,8 @@
     });
   }
 
-  window.matchMedia(APP_VIEW_QUERY).addEventListener('change', (e) => { if (e.matches) collapseVideo(); updateDots(); });
-  window.matchMedia(LANDSCAPE_QUERY).addEventListener('change', () => { requestAnimationFrame(updateDots); });
+  window.matchMedia(APP_VIEW_QUERY).addEventListener('change', (e) => { if (e.matches) collapseVideo(); updatePagingUI(); });
+  window.matchMedia(LANDSCAPE_QUERY).addEventListener('change', () => { requestAnimationFrame(updatePagingUI); });
 
   document.querySelectorAll('a[href="#demo-unit"]').forEach(link => {
     link.addEventListener('click', (e) => {
