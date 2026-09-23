@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0a0908">
 <title>Sobha Insignia for Sale</title>
-<meta name="description" content="3.5 BHK, 2,403 sft, 6th Floor, Sobha Insignia, Bengaluru — for sale by owner. ₹4.5 Cr.">
+<meta name="description" content="3.5 BHK, 2,403 sft, 6th Floor, Sobha Insignia, Bengaluru — for sale by owner. ₹4.55 Cr.">
 <meta property="og:title" content="Sobha Insignia for Sale">
-<meta property="og:description" content="3.5 BHK · 2,403 sft SBA · 6th Floor · ₹4.5 Cr · Direct from Owner">
+<meta property="og:description" content="3.5 BHK · 2,403 sft SBA · 6th Floor · ₹4.55 Cr · Direct from Owner">
+<meta property="og:image" content="https://vinchess1989.github.io/sobha-insignia-for-sale/assets/hero-poster.jpg">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%A2%3C/text%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -454,6 +455,83 @@
   }
 
   /* ===========================================================
+     BUYER FLOW — video hero, price, "At a glance", next steps
+     =========================================================== */
+  .hero-video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; background:#0a0908;}
+  .hero-shade{position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:linear-gradient(180deg, rgba(10,9,8,0.55) 0%, rgba(10,9,8,0.35) 35%, rgba(10,9,8,0.55) 65%, rgba(10,9,8,0.92) 100%);}
+  .hero::after{display:none;}
+  .hero-title{text-shadow:0 2px 24px rgba(0,0,0,0.55);}
+  .hero-price{
+    font-family:'Playfair Display',serif; font-weight:700; line-height:1;
+    font-size:clamp(2.4rem,6vw,3.6rem); color:var(--gold-soft);
+    margin:.35rem 0 .85rem; text-shadow:0 2px 20px rgba(0,0,0,0.6);
+  }
+  .hero-facts{font-size:1.1rem; font-weight:600; color:var(--text-1); margin-bottom:.35rem; letter-spacing:.01em; text-shadow:0 1px 12px rgba(0,0,0,0.7);}
+  .hero .hero-sub{color:#d9d2c3; text-shadow:0 1px 12px rgba(0,0,0,0.7);}
+  .hero-film-btn{
+    display:inline-flex; align-items:center; gap:.55rem; margin-top:1.4rem;
+    background:rgba(10,9,8,0.45); border:1px solid rgba(245,241,232,0.25); border-radius:2rem;
+    color:var(--text-1); font:inherit; font-size:.85rem; font-weight:500;
+    padding:.55rem 1.1rem; cursor:pointer; backdrop-filter:blur(6px); transition:border-color .2s, color .2s;
+  }
+  .hero-film-btn i{color:var(--gold-soft); font-size:1.05rem;}
+  .hero-film-btn span{color:var(--text-2); font-size:.78rem;}
+  .hero-film-btn:hover{border-color:var(--gold-soft); color:var(--gold-soft);}
+
+  .film-modal{position:fixed; inset:0; z-index:400; background:rgba(6,5,4,0.94); display:flex; align-items:center; justify-content:center; padding:2rem;}
+  .film-modal[hidden]{display:none;}
+  .film-modal video{width:min(100%, 1200px); max-height:86vh; border-radius:.75rem; background:#000; box-shadow:0 30px 80px rgba(0,0,0,0.6);}
+  .film-close{position:absolute; top:1.25rem; right:1.25rem; width:44px; height:44px; border-radius:50%;
+    background:rgba(255,255,255,0.1); border:1px solid var(--border-lit); color:#fff; font-size:1.1rem; cursor:pointer;}
+  body.film-open{overflow:hidden;}
+
+  .nav-num{
+    display:inline-flex; align-items:center; justify-content:center; width:1.15rem; height:1.15rem; margin-right:.4rem;
+    border-radius:50%; border:1px solid var(--border-lit); font-size:.62rem; font-weight:700; color:var(--gold-soft); vertical-align:1px;
+  }
+
+  #about .stats-strip{padding:0; margin:0 0 1.5rem; max-width:none;}
+  .glance-text{color:var(--text-2); font-size:1rem; line-height:1.75; max-width:680px; margin-bottom:1.25rem;}
+  .glance-text strong{color:var(--text-1);}
+  .trust-list{list-style:none; display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:.5rem;}
+  .trust-list li{
+    display:inline-flex; align-items:center; gap:.5rem; font-size:.8rem; color:var(--text-2);
+    border:1px solid var(--border); border-radius:2rem; padding:.45rem .9rem; background:var(--bg-card);
+  }
+  .trust-list i{color:var(--gold-soft);}
+
+  .next-step{
+    display:inline-flex; align-items:center; gap:.6rem; margin-top:2.25rem;
+    padding:.8rem 1.4rem; border-radius:2rem; text-decoration:none;
+    font-weight:600; font-size:.92rem; color:var(--gold-soft);
+    border:1px solid var(--border-lit); background:rgba(212,175,55,0.07);
+    transition:background .2s, transform .2s;
+  }
+  .next-step:hover{background:rgba(212,175,55,0.16); transform:translateX(3px);}
+  .next-step-final{color:#1a1305; background:linear-gradient(135deg,var(--gold),#a9822a); border-color:transparent;}
+  .next-step-final:hover{background:linear-gradient(135deg,var(--gold-soft),var(--gold));}
+
+  .visit-cta{margin:0 0 1.5rem; font-size:1rem; padding:1rem 1.6rem;}
+
+  .gallery-featured{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));}
+  .thumb-cap{
+    position:absolute; left:0; right:0; bottom:0; padding:1.4rem .8rem .55rem;
+    font-size:.78rem; font-weight:600; color:#fff; pointer-events:none;
+    background:linear-gradient(180deg, transparent, rgba(0,0,0,0.72));
+  }
+  .gallery-toggle{
+    display:inline-flex; align-items:center; gap:.55rem; margin:0 0 2rem;
+    padding:.7rem 1.3rem; border-radius:2rem; cursor:pointer; font:inherit; font-size:.88rem; font-weight:600;
+    color:var(--text-1); background:var(--bg-card); border:1px solid var(--border-lit);
+  }
+  .gallery-toggle i{color:var(--gold-soft);}
+  .gallery-more{display:none;}
+  #gallery.gallery-expanded .gallery-more{display:block;}
+
+  .subnav-next{display:none;}
+
+  /* ===========================================================
      MOBILE APP SHELL — phones (portrait <=768px) and phones in
      landscape. One screen per bottom tab; desktop is untouched.
      =========================================================== */
@@ -512,24 +590,46 @@
     [data-mtab]{display:none !important;}
     [data-mtab].mob-active{display:block !important;}
     .hero[data-mtab].mob-active{display:flex !important;}
-    .stats-strip[data-mtab].mob-active{display:grid !important;}
 
     /* Remove desktop-only extras */
     .fade-in{opacity:1 !important; transform:none !important; transition:none !important;}
-    .floating-video, .float-cta{display:none !important;}
+    .float-cta{display:none !important;}
 
-    /* Home */
-    .hero{min-height:auto; padding:2rem 1.25rem 1rem;}
-    .hero-eyebrow{font-size:.62rem; letter-spacing:.1em; padding:.35rem .8rem; margin-bottom:1.1rem;}
+    /* Home: the video fills the first screen */
+    .hero{min-height:calc(100vh - var(--app-hdr) - var(--subnav-h) - 66px); padding:1.5rem 1.25rem;}
+    @supports (height:100svh){ .hero{min-height:calc(100svh - var(--app-hdr) - var(--subnav-h) - 66px);} }
+    .hero-eyebrow{font-size:.62rem; letter-spacing:.1em; padding:.35rem .8rem; margin-bottom:1rem;}
     .hero-title{font-size:clamp(2.2rem,10vw,3rem);}
-    .hero-sub{font-size:.95rem; margin-bottom:1.4rem;}
+    .hero-price{font-size:clamp(2.2rem,10vw,2.8rem); margin:.3rem 0 .7rem;}
+    .hero-facts{font-size:.95rem;}
+    .hero-sub{font-size:.88rem; margin-bottom:1.4rem;}
     .cta-row{flex-wrap:nowrap; gap:.6rem;}
     .cta-row .btn{flex:1; justify-content:center; padding:.8rem .5rem; font-size:.88rem;}
-    .cta-row a[href^="#"], .cta-row a[href$=".pdf"]{display:none;}
-    .stats-strip{grid-template-columns:repeat(3,1fr); padding:0 1rem 1.25rem; gap:.6rem;}
+    .hero-film-btn{font-size:.8rem; margin-top:1.1rem;}
+    #about .stats-strip{grid-template-columns:repeat(3,1fr); gap:.6rem; margin-bottom:1.1rem;}
     .stat{padding:.9rem .4rem;}
-    .stat-val{font-size:1.15rem;}
+    .stat-val{font-size:1.05rem;}
     .stat-lbl{font-size:.58rem;}
+    .glance-text{font-size:.9rem; line-height:1.65; margin-bottom:1rem;}
+    .trust-list{gap:.45rem;}
+    .trust-list li{font-size:.72rem; padding:.4rem .75rem;}
+    .next-step{margin-top:1.5rem; font-size:.88rem; width:100%; justify-content:center;}
+    .film-modal{padding:0;}
+    .film-modal video{width:100%; max-height:100vh; border-radius:0;}
+    .film-close{top:calc(.75rem + env(safe-area-inset-top,0px)); right:.75rem; z-index:2;}
+    .gallery-featured{grid-template-columns:repeat(2,1fr);}
+    .thumb-cap{font-size:.68rem; padding:1rem .5rem .4rem;}
+    .gallery-toggle{width:100%; justify-content:center; margin-bottom:1.5rem;}
+
+    /* Contents bar ends with where to go next */
+    .subnav-next{
+      display:inline-flex; align-items:center; gap:.35rem; flex:0 0 auto;
+      position:sticky; right:0; margin-left:auto;
+      padding:.32rem .75rem; border-radius:999px; white-space:nowrap; cursor:pointer;
+      font-family:inherit; font-size:.7rem; font-weight:700; color:var(--gold-soft);
+      background:#0a0908; border:1px solid var(--border-lit); box-shadow:-10px 0 12px #0a0908;
+      touch-action:manipulation;
+    }
 
     section{padding:1.5rem 1rem 1rem;}
     section:nth-of-type(even){background:transparent;}
@@ -627,18 +727,31 @@
     .sec-title{font-size:1.05rem; margin-bottom:.35rem;}
     .sec-desc{display:none;}
 
-    /* Home: hero + stats share one screen, overview is the second page */
-    .hero[data-mtab].mob-active{flex:0 0 54vw; width:54vw; padding:.4rem .75rem .4rem 1.25rem !important; align-items:center;}
-    .hero[data-mtab].mob-active{overflow:hidden;}
+    /* Home: page 1 is the video hero, page 2 is "At a glance" */
+    .hero[data-mtab].mob-active{min-height:0; padding:.4rem 1.25rem !important; align-items:center; overflow:hidden;}
     .hero::after{display:none;}
-    .hero-inner{max-width:none;}
-    .hero-eyebrow{font-size:.56rem; padding:.28rem .65rem; margin-bottom:.6rem;}
-    .hero-title{font-size:clamp(1.5rem,8.2vh,2.2rem); margin-bottom:.3rem;}
-    .hero-sub{font-size:.76rem; margin-bottom:.8rem; line-height:1.45;}
-    .cta-row .btn{padding:.6rem .4rem; font-size:.8rem;}
-    .stats-strip[data-mtab].mob-active{flex:0 0 46vw; width:46vw; max-width:none; margin:0; padding:.5rem 1.25rem .5rem .25rem !important; grid-template-columns:repeat(2,1fr); grid-auto-rows:1fr; align-content:center; gap:.5rem; scroll-snap-align:none; overflow:hidden;}
-    .stat{display:flex; flex-direction:column; justify-content:center; padding:.3rem;}
-    .stat-val{font-size:1.1rem;}
+    .hero-inner{max-width:560px;}
+    .hero-eyebrow{font-size:.56rem; padding:.26rem .65rem; margin-bottom:.4rem;}
+    .hero-title{font-size:clamp(1.4rem,7.5vh,2rem); margin-bottom:.1rem;}
+    .hero-price{font-size:clamp(1.4rem,7.5vh,2rem); margin:.15rem 0 .3rem;}
+    .hero-facts{font-size:.76rem; margin-bottom:.15rem;}
+    .hero-sub{font-size:.7rem; margin-bottom:.55rem; line-height:1.4;}
+    .cta-row{flex-wrap:nowrap; justify-content:center;}
+    .cta-row .btn{flex:0 1 auto; padding:.5rem .9rem; font-size:.76rem;}
+    .hero-film-btn{margin-top:.5rem; padding:.35rem .8rem; font-size:.7rem;}
+    #about .stats-strip{grid-template-columns:repeat(6,1fr); gap:.4rem; margin:.25rem 0 .5rem;}
+    .stat{display:flex; flex-direction:column; justify-content:center; padding:.45rem .25rem;}
+    .stat-val{font-size:.92rem;}
+    .stat-lbl{font-size:.52rem; margin-top:.2rem;}
+    .glance-text{font-size:.74rem; line-height:1.5; margin-bottom:.5rem;}
+    .trust-list{gap:.35rem; flex-wrap:wrap;}
+    .trust-list li{font-size:.62rem; padding:.3rem .6rem;}
+    .next-step{display:none;}
+    .gallery-toggle{display:none;}
+    #gallery .gallery-more{display:flex !important;}
+    .thumb-cap{font-size:.58rem; padding:.8rem .4rem .3rem;}
+    .subnav-next{padding:.24rem .6rem; font-size:.64rem;}
+    .visit-cta{margin:0 0 .5rem; padding:.6rem 1rem; font-size:.8rem;}
     #about .about-grid{grid-template-columns:1fr 1.1fr; gap:1rem; align-items:start;}
     #about .highlight-list{display:grid; grid-template-columns:1fr 1fr; align-content:start;}
     #about .sec-eyebrow{display:none;}
@@ -708,8 +821,8 @@
     .spec-ul li{font-size:.66rem; line-height:1.4;}
 
     /* Contact: brochure and contact share one screen */
-    #brochure[data-mtab].mob-active{flex:0 0 38vw; width:38vw; display:flex !important; align-items:center; padding:.4rem .75rem .4rem 1.25rem !important;}
-    #contact[data-mtab].mob-active{flex:0 0 62vw; width:62vw; display:flex !important; align-items:center; scroll-snap-align:none; padding:.4rem 1.25rem .4rem .5rem !important;}
+    #contact[data-mtab].mob-active{flex:0 0 62vw; width:62vw; display:flex !important; align-items:center; padding:.4rem .5rem .4rem 1.25rem !important;}
+    #brochure[data-mtab].mob-active{flex:0 0 38vw; width:38vw; display:flex !important; align-items:center; scroll-snap-align:none; padding:.4rem 1.25rem .4rem .75rem !important;}
     #brochure .wrap, #contact .wrap{width:100%;}
     #brochure .wrap > .sec-eyebrow, #brochure .wrap > .sec-title{display:none;}
     .brochure-panel{flex-direction:column; align-items:flex-start; padding:.9rem; gap:.5rem; border-radius:1rem;}
@@ -762,80 +875,58 @@
   <div class="nav-logo">SOBHA INSIGNIA</div>
   <div class="page-dots" id="pageDots" aria-hidden="true"></div>
   <ul class="nav-links">
-    <li><a href="#about">Overview</a></li>
-    <li><a href="#floorplan">Floorplan</a></li>
-    <li><a href="#amenities">Amenities</a></li>
-    <li><a href="#location">Location</a></li>
-    <li><a href="#gallery">Gallery</a></li>
-    <li><a href="#walkthrough">Project Walkthrough</a></li>
-    <li><a href="#demo-unit">Demo Walkthrough</a></li>
-    <li><a href="#brochure">Brochure</a></li>
+    <li><a href="#about"><span class="nav-num">1</span>At a glance</a></li>
+    <li><a href="#floorplan"><span class="nav-num">2</span>Tour the home</a></li>
+    <li><a href="#gallery"><span class="nav-num">3</span>Photos</a></li>
+    <li><a href="#amenities"><span class="nav-num">4</span>Project</a></li>
+    <li><a href="#location"><span class="nav-num">5</span>Location</a></li>
+    <li><a href="#contact"><span class="nav-num">6</span>Visit</a></li>
   </ul>
   <a class="nav-cta" href="https://wa.me/918921658093?text=Hi%2C%20I%27m%20interested%20in%20your%20listing%20at%20Sobha%20Insignia" target="_blank" aria-label="Enquire on WhatsApp"><i class="fab fa-whatsapp"></i> <span class="nav-cta-text">Enquire</span></a>
 </nav>
 
 <div class="mobile-subnav" id="mobileSubnav" role="navigation" aria-label="Section contents"></div>
 
-<section class="hero" data-mtab="home" data-page data-page-label="Highlights">
+<section class="hero" data-mtab="home" data-page data-page-label="Welcome">
+  <video class="hero-video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+    <source src="assets/hero-loop-854.mp4" type="video/mp4" media="(max-width: 900px)">
+    <source src="assets/hero-loop-1280.mp4" type="video/mp4">
+  </video>
+  <div class="hero-shade" aria-hidden="true"></div>
   <div class="hero-inner">
-    <div class="hero-eyebrow"><i class="fas fa-key"></i> For Sale &middot; By Owner &middot; Ready Aug 2026</div>
-    <h1 class="hero-title">Sobha Insignia<br><span class="accent">For Sale</span></h1>
-    <p class="hero-sub">3.5&nbsp;BHK &middot; <b>6th Floor</b>, Wing&nbsp;1 &middot; Bhoganahalli, Outer Ring Road, Bengaluru</p>
+    <div class="hero-eyebrow"><i class="fas fa-key"></i> For Sale &middot; Direct from Owner</div>
+    <h1 class="hero-title">Sobha Insignia</h1>
+    <div class="hero-price">&#8377;4.55&nbsp;Cr</div>
+    <p class="hero-facts">3.5&nbsp;BHK &middot; 2,403&nbsp;sft &middot; 6th&nbsp;floor &middot; Ready Aug&nbsp;2026</p>
+    <p class="hero-sub">Bhoganahalli, Outer Ring Road, Bengaluru</p>
 
     <div class="cta-row">
-      <a class="btn btn-gold" href="https://wa.me/918921658093?text=Hi%2C%20I%27m%20interested%20in%20your%20listing%20at%20Sobha%20Insignia" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      <a class="btn btn-outline" href="tel:+918921658093"><i class="fas fa-phone"></i> Call Now</a>
-      <a class="btn btn-outline" href="#floorplan"><i class="fas fa-draw-polygon"></i> Floorplan</a>
-      <a class="btn btn-outline" href="#walkthrough"><i class="fas fa-play"></i> Watch Walkthrough</a>
-      <a class="btn btn-outline" href="assets/brochure.pdf" target="_blank"><i class="fas fa-file-pdf"></i> Brochure</a>
+      <a class="btn btn-gold" href="#about"><i class="fas fa-arrow-down"></i> Explore the home</a>
+      <a class="btn btn-outline" href="https://wa.me/918921658093?text=Hi%2C%20I%27m%20interested%20in%20your%20listing%20at%20Sobha%20Insignia" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
     </div>
+    <button type="button" class="hero-film-btn" id="heroFilmBtn"><i class="fas fa-circle-play"></i> Watch the project film with sound <span>3:35</span></button>
   </div>
 </section>
 
-<div class="stats-strip fade-in" data-mtab="home">
-  <div class="stat"><div class="stat-val">3.5</div><div class="stat-lbl">BHK</div></div>
-  <div class="stat"><div class="stat-val">2,403</div><div class="stat-lbl">Sft Super Built&#8209;up</div></div>
-  <div class="stat"><div class="stat-val">1,525</div><div class="stat-lbl">Sft Carpet Area</div></div>
-  <div class="stat"><div class="stat-val">6th</div><div class="stat-lbl">Floor, Wing 1</div></div>
-  <div class="stat"><div class="stat-val">2</div><div class="stat-lbl">Car Parks</div></div>
-  <div class="stat"><div class="stat-val">2026</div><div class="stat-lbl">Handover</div></div>
-</div>
-
-<section id="about" data-mtab="home" data-page data-page-label="Overview">
+<section id="about" data-mtab="home" data-page data-page-label="At a glance">
   <div class="wrap">
-    <div class="sec-eyebrow fade-in">Overview</div>
-    <h2 class="sec-title fade-in">A Signature Sobha Address on the ORR</h2>
-    <div class="about-grid">
-      <div class="about-text fade-in">
-        <p>This is a 3.5&nbsp;bedroom (3&nbsp;BHK + study/home office) residence on the <strong>6th floor of Wing&nbsp;1</strong> at Sobha Insignia, Bhoganahalli Village, Varthur Hobli — on Bengaluru's Sarjapur&#8209;Marathahalli Outer Ring Road corridor, close to Bellandur.</p>
-        <p>The apartment offers <strong>1,524.72&nbsp;sft</strong> of carpet area and <strong>110.12&nbsp;sft</strong> of balcony space, totalling <strong>2,403.21&nbsp;sft</strong> of Super Built&#8209;up Area inclusive of a proportionate share of common areas — along with <strong>two dedicated car parking</strong> spaces in the basement/ground floor.</p>
-        <p>Built by <strong>Sobha Limited</strong> to their signature specification — vitrified tile flooring, timber doors, premium chromium&#8209;plated bath fittings, and full video door phone / intercom wiring — the project is a self&#8209;contained development of 2&nbsp;basements + ground + 8 floors, with a rooftop clubhouse and swimming pool.</p>
-        <p>Construction is complete, with handover targeted for <strong>August 2026</strong>. This is a direct, no&#8209;broker resale from the original owner.</p>
-        <div class="rera-chip"><i class="fas fa-shield-halved"></i> RERA Reg. No. PRM/KA/RERA/1251/446/PR/030922/005212</div>
-      </div>
-      <div class="highlight-list fade-in">
-        <div class="hl-item">
-          <div class="hl-icon"><i class="fas fa-building"></i></div>
-          <div><div class="hl-t">Developer</div><div class="hl-d">Sobha Limited</div></div>
-        </div>
-        <div class="hl-item">
-          <div class="hl-icon"><i class="fas fa-location-dot"></i></div>
-          <div><div class="hl-t">Location</div><div class="hl-d">Bhoganahalli, off Sarjapur&#8209;Marathahalli ORR, Bengaluru East</div></div>
-        </div>
-        <div class="hl-item">
-          <div class="hl-icon"><i class="fas fa-car"></i></div>
-          <div><div class="hl-t">Parking</div><div class="hl-d">Two dedicated car parks included</div></div>
-        </div>
-        <div class="hl-item">
-          <div class="hl-icon"><i class="fas fa-elevator"></i></div>
-          <div><div class="hl-t">Structure</div><div class="hl-d">2 Basements + Ground + 8 floors &middot; 2 lifts</div></div>
-        </div>
-        <div class="hl-item">
-          <div class="hl-icon"><i class="fas fa-house-circle-check"></i></div>
-          <div><div class="hl-t">Status</div><div class="hl-d">Construction complete &middot; Handover Aug 2026</div></div>
-        </div>
-      </div>
+    <div class="sec-eyebrow fade-in">At a glance</div>
+    <h2 class="sec-title fade-in">A Sobha home on the Outer Ring Road</h2>
+    <div class="stats-strip fade-in">
+      <div class="stat"><div class="stat-val">3 + Study</div><div class="stat-lbl">Bedrooms</div></div>
+      <div class="stat"><div class="stat-val">1,525</div><div class="stat-lbl">Sft carpet area</div></div>
+      <div class="stat"><div class="stat-val">110</div><div class="stat-lbl">Sft balconies</div></div>
+      <div class="stat"><div class="stat-val">2</div><div class="stat-lbl">Car parks</div></div>
+      <div class="stat"><div class="stat-val">6th of 8</div><div class="stat-lbl">Floor, Wing 1</div></div>
+      <div class="stat"><div class="stat-val">Sobha</div><div class="stat-lbl">Developer</div></div>
     </div>
+    <p class="glance-text fade-in">On the Sarjapur&#8209;Marathahalli Outer Ring Road, minutes from Bellandur's tech parks.</p>
+    <ul class="trust-list fade-in">
+      <li><i class="fas fa-handshake"></i> Direct from the owner &mdash; no brokerage</li>
+      <li><i class="fas fa-house-circle-check"></i> Construction complete</li>
+      <li><i class="fas fa-shield-halved"></i> RERA PRM/KA/RERA/1251/446/PR/030922/005212</li>
+    </ul>
+    <a class="next-step fade-in" href="#floorplan">Next: tour the home room by room <i class="fas fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -909,8 +1000,87 @@
         <img src="assets/master-plan.png" alt="Sobha Insignia site master plan showing building layout, private boulevard and numbered amenities">
       </div>
     </div>
+    <a class="next-step fade-in" href="#gallery">Next: see the photos <i class="fas fa-arrow-right"></i></a>
   </div>
 </section>
+
+<section id="gallery" data-mtab="photos">
+  <div class="wrap">
+    <div class="sec-eyebrow fade-in">Photos</div>
+    <h2 class="sec-title fade-in">See the space</h2>
+    <p class="sec-desc fade-in">Real photos of the apartment and the Sobha Insignia clubhouse, pool and grounds.</p>
+
+    <div class="gallery-group fade-in" data-page data-page-label="Highlights">
+      <div class="gallery-group-title">Highlights</div>
+      <div class="gallery-grid gallery-featured">
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-12.jpg" loading="lazy" alt="Rooftop pool deck"><span class="thumb-cap">Rooftop pool deck</span></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-06.jpg" loading="lazy" alt="Balcony view"><span class="thumb-cap">Balcony view</span></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-11.jpg" loading="lazy" alt="Living area"><span class="thumb-cap">Living area</span></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-21.jpg" loading="lazy" alt="Rooftop pool"><span class="thumb-cap">Rooftop pool</span></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-04.jpg" loading="lazy" alt="Bedroom"><span class="thumb-cap">Bedroom</span></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-01.jpg" loading="lazy" alt="Entrance at night"><span class="thumb-cap">Entrance at night</span></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-19.jpg" loading="lazy" alt="Party hall"><span class="thumb-cap">Party hall</span></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-14.jpg" loading="lazy" alt="Clubhouse lounge"><span class="thumb-cap">Clubhouse lounge</span></div>
+      </div>
+    </div>
+
+    <button type="button" class="gallery-toggle" id="galleryToggle" aria-expanded="false"><i class="fas fa-images"></i> <span>View all 41 photos</span></button>
+
+    <div class="gallery-group gallery-more fade-in" data-page data-page-label="Indoor">
+      <div class="gallery-group-title">More of the apartment</div>
+      <div class="gallery-grid">
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-01.jpg" loading="lazy" alt="Indoor photo 1"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-02.jpg" loading="lazy" alt="Indoor photo 2"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-03.jpg" loading="lazy" alt="Indoor photo 3"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-05.jpg" loading="lazy" alt="Indoor photo 5"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-07.jpg" loading="lazy" alt="Indoor photo 7"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-08.jpg" loading="lazy" alt="Indoor photo 8"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-09.jpg" loading="lazy" alt="Indoor photo 9"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-10.jpg" loading="lazy" alt="Indoor photo 10"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-12.jpg" loading="lazy" alt="Indoor photo 12"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-13.jpg" loading="lazy" alt="Indoor photo 13"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-14.jpg" loading="lazy" alt="Indoor photo 14"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-15.jpg" loading="lazy" alt="Indoor photo 15"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-16.jpg" loading="lazy" alt="Indoor photo 16"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-17.jpg" loading="lazy" alt="Indoor photo 17"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-18.jpg" loading="lazy" alt="Indoor photo 18"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-19.jpg" loading="lazy" alt="Indoor photo 19"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-20.jpg" loading="lazy" alt="Indoor photo 20"></div>
+      </div>
+    </div>
+
+    <div class="gallery-group gallery-more fade-in" data-page data-page-label="Common Areas">
+      <div class="gallery-group-title">More of the project</div>
+      <div class="gallery-grid">
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-02.jpg" loading="lazy" alt="Sobha Insignia common area photo 2"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-03.jpg" loading="lazy" alt="Entrance driveway and lobby canopy"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-04.jpg" loading="lazy" alt="Street-side walkway"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-05.jpg" loading="lazy" alt="Building entrance canopy"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-06.jpg" loading="lazy" alt="Side walkway between wings"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-07.jpg" loading="lazy" alt="Side walkway with landscaping"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-08.jpg" loading="lazy" alt="Landscaped side walkway"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-09.jpg" loading="lazy" alt="Landscaped seating walkway"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-10.jpg" loading="lazy" alt="Landscaped path with ferns"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-11.jpg" loading="lazy" alt="Landscaped path with rock garden"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-13.jpg" loading="lazy" alt="Clubhouse gymnasium entrance"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-15.jpg" loading="lazy" alt="Clubhouse balcony terrace"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-16.jpg" loading="lazy" alt="Clubhouse hallway"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-17.jpg" loading="lazy" alt="Clubhouse pantry signage"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-18.jpg" loading="lazy" alt="Clubhouse pantry"></div>
+        <div class="gallery-thumb"><img src="assets/gallery/common/common-20.jpg" loading="lazy" alt="Clubhouse party hall with city view"></div>
+      </div>
+    </div>
+
+    <a class="next-step fade-in" href="#amenities">Next: explore the project <i class="fas fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-btn lightbox-close" id="lightboxClose"><i class="fas fa-xmark"></i></div>
+  <div class="lightbox-btn lightbox-nav lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></div>
+  <img id="lightboxImg" src="" alt="Enlarged photo">
+  <div class="lightbox-btn lightbox-nav lightbox-next" id="lightboxNext"><i class="fas fa-chevron-right"></i></div>
+</div>
 
 <section id="amenities" data-mtab="project" data-page data-page-label="Amenities">
   <div class="wrap">
@@ -931,6 +1101,7 @@
       <div class="amen-card"><div class="amen-icon"><i class="fas fa-video"></i></div><div class="amen-name">Video Door Phone</div></div>
       <div class="amen-card"><div class="amen-icon"><i class="fas fa-shield-halved"></i></div><div class="amen-name">Intercom Security</div></div>
     </div>
+    <a class="next-step fade-in" href="#location">Next: check the location <i class="fas fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -942,75 +1113,9 @@
     <div class="fade-in" style="border-radius:1.25rem; overflow:hidden; border:1px solid var(--border); box-shadow:0 30px 80px rgba(0,0,0,0.5);">
       <img src="assets/location-map.png" alt="Map of Sobha Insignia and nearby corporate offices, hospitals, colleges and landmarks" style="width:100%; display:block;">
     </div>
+    <a class="next-step fade-in" href="#specs">Next: what's built in <i class="fas fa-arrow-right"></i></a>
   </div>
 </section>
-
-<section id="gallery" data-mtab="photos">
-  <div class="wrap">
-    <div class="sec-eyebrow fade-in">Photo Gallery</div>
-    <h2 class="sec-title fade-in">See the Space</h2>
-    <p class="sec-desc fade-in">Real photos of the unit and the Sobha Insignia common areas.</p>
-
-    <div class="gallery-group fade-in" data-page data-page-label="Indoor">
-      <div class="gallery-group-title">Indoor</div>
-      <div class="gallery-grid">
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-01.jpg" loading="lazy" alt="Indoor photo 1"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-02.jpg" loading="lazy" alt="Indoor photo 2"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-03.jpg" loading="lazy" alt="Indoor photo 3"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-04.jpg" loading="lazy" alt="Indoor photo 4"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-05.jpg" loading="lazy" alt="Indoor photo 5"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-06.jpg" loading="lazy" alt="Indoor photo 6"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-07.jpg" loading="lazy" alt="Indoor photo 7"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-08.jpg" loading="lazy" alt="Indoor photo 8"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-09.jpg" loading="lazy" alt="Indoor photo 9"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-10.jpg" loading="lazy" alt="Indoor photo 10"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-11.jpg" loading="lazy" alt="Indoor photo 11"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-12.jpg" loading="lazy" alt="Indoor photo 12"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-13.jpg" loading="lazy" alt="Indoor photo 13"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-14.jpg" loading="lazy" alt="Indoor photo 14"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-15.jpg" loading="lazy" alt="Indoor photo 15"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-16.jpg" loading="lazy" alt="Indoor photo 16"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-17.jpg" loading="lazy" alt="Indoor photo 17"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-18.jpg" loading="lazy" alt="Indoor photo 18"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-19.jpg" loading="lazy" alt="Indoor photo 19"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/indoor/indoor-20.jpg" loading="lazy" alt="Indoor photo 20"></div>      </div>
-    </div>
-
-    <div class="gallery-group fade-in" data-page data-page-label="Common Areas">
-      <div class="gallery-group-title">Common Areas</div>
-      <div class="gallery-grid">
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-01.jpg" loading="lazy" alt="Sobha Insignia common area photo 1"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-02.jpg" loading="lazy" alt="Sobha Insignia common area photo 2"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-03.jpg" loading="lazy" alt="Entrance driveway and lobby canopy"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-04.jpg" loading="lazy" alt="Street-side walkway"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-05.jpg" loading="lazy" alt="Building entrance canopy"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-06.jpg" loading="lazy" alt="Side walkway between wings"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-07.jpg" loading="lazy" alt="Side walkway with landscaping"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-08.jpg" loading="lazy" alt="Landscaped side walkway"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-09.jpg" loading="lazy" alt="Landscaped seating walkway"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-10.jpg" loading="lazy" alt="Landscaped path with ferns"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-11.jpg" loading="lazy" alt="Landscaped path with rock garden"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-12.jpg" loading="lazy" alt="Rooftop pool lounge and seating deck"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-13.jpg" loading="lazy" alt="Clubhouse gymnasium entrance"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-14.jpg" loading="lazy" alt="Clubhouse lounge seating area"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-15.jpg" loading="lazy" alt="Clubhouse balcony terrace"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-16.jpg" loading="lazy" alt="Clubhouse hallway"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-17.jpg" loading="lazy" alt="Clubhouse pantry signage"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-18.jpg" loading="lazy" alt="Clubhouse pantry"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-19.jpg" loading="lazy" alt="Clubhouse party hall interior"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-20.jpg" loading="lazy" alt="Clubhouse party hall with city view"></div>
-        <div class="gallery-thumb"><img src="assets/gallery/common/common-21.jpg" loading="lazy" alt="Rooftop swimming pool with steps"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="lightbox" id="lightbox">
-  <div class="lightbox-btn lightbox-close" id="lightboxClose"><i class="fas fa-xmark"></i></div>
-  <div class="lightbox-btn lightbox-nav lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></div>
-  <img id="lightboxImg" src="" alt="Enlarged photo">
-  <div class="lightbox-btn lightbox-nav lightbox-next" id="lightboxNext"><i class="fas fa-chevron-right"></i></div>
-</div>
 
 <section id="specs" data-mtab="project" data-page data-page-label="Specs">
   <div class="wrap">
@@ -1050,17 +1155,27 @@
         </ul>
       </div>
     </div>
+    <a class="next-step next-step-final fade-in" href="#contact">Liked it? Book a site visit <i class="fas fa-arrow-right"></i></a>
   </div>
 </section>
 
-<section id="walkthrough" data-mtab="project" data-page data-page-label="Video">
+<section id="contact" data-mtab="contact" data-page data-page-label="Book a visit">
   <div class="wrap">
-    <div class="sec-eyebrow fade-in">Walkthrough</div>
-    <h2 class="sec-title fade-in">Project Walkthrough</h2>
-    <p class="sec-desc fade-in">Official project walkthrough from Sobha Limited.</p>
-    <div class="video-wrap fade-in">
-      <iframe width="100%" height="600" loading="lazy" src="https://www.youtube.com/embed/ZPbH7YxCH7U" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius: 1.5rem; display: block;"></iframe>
+    <div class="sec-eyebrow fade-in">Visit</div>
+    <h2 class="sec-title fade-in">Like what you see? Come and see it in person.</h2>
+    <p class="sec-desc fade-in">Sold directly by the owner. Message on WhatsApp to fix a time for a site visit, or ask anything.</p>
+    <a class="btn btn-gold visit-cta fade-in" href="https://wa.me/918921658093?text=Hi%2C%20I%27d%20like%20to%20schedule%20a%20site%20visit%20to%20your%20Sobha%20Insignia%20apartment." target="_blank"><i class="fab fa-whatsapp"></i> Book a site visit on WhatsApp</a>
+    <div class="contact-grid fade-in">
+      <a href="tel:+918921658093" class="contact-link">
+        <div class="c-icon"><i class="fas fa-phone"></i></div>
+        <div><div class="c-lbl">Call</div><div class="c-val">+91 89216 58093</div></div>
+      </a>
+      <a href="mailto:vineethkaimal1989@gmail.com?subject=Interested%20in%20Sobha%20Insignia" class="contact-link">
+        <div class="c-icon"><i class="fas fa-envelope"></i></div>
+        <div><div class="c-lbl">Email</div><div class="c-val">vineethkaimal1989@gmail.com</div></div>
+      </a>
     </div>
+    <p class="disclaimer fade-in">Listed directly by the owner — no broker involved. Areas, specifications and amenities are as stated in the Sobha Insignia Agreement for Sale and official project brochure. Sobha Insignia is a project of Sobha Limited; this page is an independent resale listing and is not published by or affiliated with Sobha Limited.</p>
   </div>
 </section>
 
@@ -1081,28 +1196,6 @@
   </div>
 </section>
 
-<section id="contact" data-mtab="contact" data-page data-page-label="Get in Touch">
-  <div class="wrap">
-    <div class="sec-eyebrow fade-in">Get in Touch</div>
-    <h2 class="sec-title fade-in">Interested? Let's Talk.</h2>
-    <p class="sec-desc fade-in">Available for sale. Get in touch with us for more details.</p>
-    <div class="contact-grid fade-in">
-      <a href="https://wa.me/918921658093?text=Hi%2C%20I%27m%20interested%20in%20your%20listing%20at%20Sobha%20Insignia" target="_blank" class="contact-link">
-        <div class="c-icon"><i class="fab fa-whatsapp"></i></div>
-        <div><div class="c-lbl">WhatsApp</div><div class="c-val">+91 89216 58093</div></div>
-      </a>
-      <a href="tel:+918921658093" class="contact-link">
-        <div class="c-icon"><i class="fas fa-phone"></i></div>
-        <div><div class="c-lbl">Call</div><div class="c-val">+91 89216 58093</div></div>
-      </a>
-      <a href="mailto:vineethkaimal1989@gmail.com?subject=Interested%20in%20Sobha%20Insignia" class="contact-link">
-        <div class="c-icon"><i class="fas fa-envelope"></i></div>
-        <div><div class="c-lbl">Email</div><div class="c-val">vineethkaimal1989@gmail.com</div></div>
-      </a>
-    </div>
-    <p class="disclaimer fade-in">Listed directly by the owner — no broker involved. Areas, specifications and amenities are as stated in the Sobha Insignia Agreement for Sale and official project brochure. Sobha Insignia is a project of Sobha Limited; this page is an independent resale listing and is not published by or affiliated with Sobha Limited.</p>
-  </div>
-</section>
 
 <footer data-mtab="contact">
   <p><b>Sobha Insignia</b> &middot; Bhoganahalli, Bengaluru &middot; For Sale by Owner</p>
@@ -1118,13 +1211,11 @@
 
 <a class="float-cta" href="https://wa.me/918921658093?text=Hi%2C%20I%27m%20interested%20in%20your%20listing%20at%20Sobha%20Insignia" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
-<div class="floating-video" id="floatingVideo" title="Watch full walkthrough">
-  <div class="fv-label">Walkthrough</div>
-  <button class="fv-btn fv-close" id="fvClose" aria-label="Close video" style="z-index: 10;"><i class="fas fa-xmark"></i></button>
-  <button class="fv-btn fv-mute" id="fvMute" aria-label="Unmute video" style="z-index: 10;"><i class="fas fa-volume-xmark"></i></button>
-  <div style="pointer-events: none; width: 100%; aspect-ratio: 16/9; overflow: hidden; background: #000;">
-    <iframe id="fvVideo" width="100%" height="100%" src="https://www.youtube.com/embed/ZPbH7YxCH7U?autoplay=1&mute=1&loop=1&playlist=ZPbH7YxCH7U&controls=0&showinfo=0&rel=0&modestbranding=1&enablejsapi=1" frameborder="0" allow="autoplay; encrypted-media" style="transform: scale(1.2);"></iframe>
-  </div>
+<div class="film-modal" id="filmModal" role="dialog" aria-modal="true" aria-label="Sobha Insignia project film" hidden>
+  <button type="button" class="film-close" id="filmClose" aria-label="Close video"><i class="fas fa-xmark"></i></button>
+  <video id="filmVideo" controls playsinline preload="none" poster="assets/hero-poster.jpg">
+    <source src="assets/hero-720.mp4" type="video/mp4">
+  </video>
 </div>
 
 <script>
@@ -1137,45 +1228,60 @@
 
   const APP_VIEW_QUERY = '(max-width:768px), (max-height:550px) and (orientation:landscape)';
   const isAppView = () => window.matchMedia(APP_VIEW_QUERY).matches;
-  if (isAppView()) {
-    const pip = document.getElementById('floatingVideo');
-    if (pip) pip.remove();
+
+  // Hero: silent looping background. Skip it for data-saver / reduced-motion users (poster stays).
+  const heroVideo = document.getElementById('heroVideo');
+  const saveData = navigator.connection && navigator.connection.saveData;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (heroVideo) {
+    if (saveData || reduceMotion) {
+      heroVideo.removeAttribute('autoplay');
+      heroVideo.preload = 'none';
+      heroVideo.pause();
+    } else {
+      const p = heroVideo.play();
+      if (p && p.catch) p.catch(() => {});
+      // Don't spend battery/data on a background video nobody is looking at.
+      new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting && !document.body.classList.contains('film-open')) { const q = heroVideo.play(); if (q && q.catch) q.catch(() => {}); }
+          else heroVideo.pause();
+        });
+      }, { threshold: 0.15 }).observe(heroVideo);
+    }
   }
 
-  const fvWrap = document.getElementById('floatingVideo');
-  const fvClose = document.getElementById('fvClose');
-  const fvMute = document.getElementById('fvMute');
-
-  if (fvClose && fvWrap) {
-      fvClose.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (fvPlayer) { try { fvPlayer.destroy(); } catch (err) {} }
-        fvWrap.remove();
-      });
-
-      fvWrap.addEventListener('click', () => {
-        const walkthroughSec = document.getElementById('walkthrough');
-        if (walkthroughSec) walkthroughSec.scrollIntoView({ behavior: 'smooth' });
-      });
+  // Full film with sound, only downloaded when asked for.
+  const filmModal = document.getElementById('filmModal');
+  const filmVideo = document.getElementById('filmVideo');
+  function openFilm() {
+    filmModal.hidden = false;
+    document.body.classList.add('film-open');
+    if (heroVideo) heroVideo.pause();
+    const p = filmVideo.play();
+    if (p && p.catch) p.catch(() => {});
   }
-
-  let fvPlayer = null;
-  if (fvMute) {
-    fvMute.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (!fvPlayer || typeof fvPlayer.isMuted !== 'function') return;
-      if (fvPlayer.isMuted()) {
-        fvPlayer.unMute();
-        fvMute.innerHTML = '<i class="fas fa-volume-high"></i>';
-        fvMute.setAttribute('aria-label', 'Mute video');
-      } else {
-        fvPlayer.mute();
-        fvMute.innerHTML = '<i class="fas fa-volume-xmark"></i>';
-        fvMute.setAttribute('aria-label', 'Unmute video');
-      }
-    });
-
+  function closeFilm() {
+    filmVideo.pause();
+    filmModal.hidden = true;
+    document.body.classList.remove('film-open');
+    if (heroVideo && !saveData && !reduceMotion) { const q = heroVideo.play(); if (q && q.catch) q.catch(() => {}); }
   }
+  document.getElementById('heroFilmBtn').addEventListener('click', openFilm);
+  document.getElementById('filmClose').addEventListener('click', closeFilm);
+  filmModal.addEventListener('click', (e) => { if (e.target === filmModal) closeFilm(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !filmModal.hidden) closeFilm(); });
+
+  // Photos: best shots first, the rest on request.
+  const galleryEl = document.getElementById('gallery');
+  const galleryToggle = document.getElementById('galleryToggle');
+  galleryToggle.addEventListener('click', () => {
+    const open = galleryEl.classList.toggle('gallery-expanded');
+    galleryToggle.setAttribute('aria-expanded', String(open));
+    galleryToggle.querySelector('span').textContent = open ? 'Show fewer photos' : 'View all 41 photos';
+    if (!open) galleryEl.scrollIntoView({ behavior: 'instant', block: 'start' });
+    requestAnimationFrame(() => { if (typeof buildSubnav === 'function') buildSubnav(); });
+  });
 
   const ytApiScript = document.createElement('script');
   ytApiScript.src = 'https://www.youtube.com/iframe_api';
@@ -1185,10 +1291,6 @@
   let pendingSeek = null;
 
   window.onYouTubeIframeAPIReady = () => {
-    const fvVideoEl = document.getElementById('fvVideo');
-    if (fvVideoEl) {
-      fvPlayer = new YT.Player('fvVideo', { events: { onReady: () => {} } });
-    }
     const demoVideoEl = document.getElementById('demoVideo');
     if (demoVideoEl) {
       demoPlayer = new YT.Player('demoVideo', {
@@ -1267,7 +1369,7 @@
     home: 'home', about: 'home',
     plan: 'plan', floorplan: 'plan', 'demo-unit': 'plan',
     photos: 'photos', gallery: 'photos',
-    project: 'project', walkthrough: 'project', amenities: 'project', location: 'project', specs: 'project',
+    project: 'project', amenities: 'project', location: 'project', specs: 'project',
     contact: 'contact', brochure: 'contact'
   };
   const mobTabBtns = document.querySelectorAll('.mobile-nav-item');
@@ -1301,14 +1403,33 @@
     Array.from(dotsEl.children).forEach((d, i) => d.classList.toggle('on', i === idx));
   }
 
+  // Where each phone tab should lead next, so the buyer never has to guess.
+  const NEXT_TAB = {
+    home: ['plan', 'Next: tour the home'],
+    plan: ['photos', 'Next: photos'],
+    photos: ['project', 'Next: the project'],
+    project: ['contact', 'Next: book a visit']
+  };
+
+  function activeTab() {
+    const b = document.querySelector('.mobile-nav-item.active');
+    return b ? b.dataset.tab : 'home';
+  }
+
   function buildSubnav() {
     if (!subnavEl) return;
     subnavPages = currentTabPages();
+    if (subnavPages.length < 2) subnavPages = [];
+    const next = NEXT_TAB[activeTab()];
     subnavEl.innerHTML = subnavPages.map((el, i) =>
       '<button type="button" class="subnav-chip" data-idx="' + i + '"><span class="subnav-dot"></span>' +
       (el.dataset.pageLabel || ('Section ' + (i + 1))) + '</button>'
-    ).join('');
-    Array.from(subnavEl.children).forEach((chip, i) => {
+    ).join('') + (next
+      ? '<button type="button" class="subnav-next" data-next="' + next[0] + '">' + next[1] + ' <i class="fas fa-arrow-right"></i></button>'
+      : '');
+    const nextBtn = subnavEl.querySelector('.subnav-next');
+    if (nextBtn) nextBtn.addEventListener('click', () => openMobTab(nextBtn.dataset.next));
+    subnavEl.querySelectorAll('.subnav-chip').forEach((chip, i) => {
       chip.addEventListener('click', () => {
         const landscape = window.matchMedia(LANDSCAPE_QUERY).matches;
         subnavPages[i].scrollIntoView({
@@ -1332,7 +1453,7 @@
       const d = landscape ? Math.abs(r.left) : Math.abs(r.top - headerOffset);
       if (d < best) { best = d; idx = i; }
     });
-    const chips = Array.from(subnavEl.children);
+    const chips = Array.from(subnavEl.querySelectorAll('.subnav-chip'));
     chips.forEach((c, i) => c.classList.toggle('active', i === idx));
     const activeChip = chips[idx];
     if (activeChip) activeChip.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
