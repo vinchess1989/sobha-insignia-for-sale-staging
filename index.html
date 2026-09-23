@@ -641,12 +641,17 @@
     .about-text p:nth-child(3){display:none;}
     .hl-item{padding:.85rem 1rem;}
 
-    /* Plan: demo video pinned on top, floorplan below so a tapped room is seen playing */
-    .floorplan-hint{margin-bottom:.9rem;}
-    .fp-video-grid, .fp-video-grid.expanded{display:flex; flex-direction:column; align-items:stretch; gap:.7rem; margin-bottom:1.5rem;}
-    .video-col{order:-1; position:sticky; top:calc(var(--app-hdr) + var(--subnav-h)); z-index:20; margin:0 -1rem; padding:.55rem 1rem; background:rgba(10,9,8,0.97); backdrop-filter:blur(14px); border-bottom:1px solid var(--border);}
-    .video-col-label{display:none;}
+    /* Plan: floorplan on top under pointing hint, demo video below */
+    #floorplan{padding-top:1rem;}
+    #floorplan .sec-eyebrow{display:none;}
+    #floorplan .sec-title{font-size:1.25rem; margin-bottom:.45rem;}
+    .floorplan-hint{margin-bottom:.75rem; padding:.45rem .85rem; font-size:.78rem;}
+    .fp-video-grid, .fp-video-grid.expanded{display:flex; flex-direction:column; align-items:stretch; gap:.75rem; margin-bottom:1.5rem;}
+    .plain-floorplan-link{font-size:.72rem; margin-top:.35rem; margin-bottom:.2rem;}
+    .video-col{position:static; order:0; margin:0; padding:0; background:transparent; backdrop-filter:none; border:none;}
+    .video-col-label{display:flex; align-items:center; gap:.4rem; font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--gold-soft); margin:.35rem 0 .25rem;}
     .video-col .video-wrap{border-radius:.9rem; box-shadow:none;}
+    .video-now{font-size:.72rem; margin-top:.35rem;}
     .floorplan-img{padding:.35rem; border-radius:.9rem; margin-inline:-.35rem;}
     .rooms-table th, .rooms-table td{padding:.65rem .9rem; font-size:.82rem;}
     .master-plan-block .sec-eyebrow{margin-top:2rem !important;}
@@ -933,8 +938,7 @@
 <section id="floorplan" data-mtab="plan">
   <div class="wrap">
     <div class="sec-eyebrow fade-in">Floorplan</div>
-    <h2 class="sec-title fade-in">Type&#8209;C Floorplan &amp; Room Dimensions</h2>
-    <p class="sec-desc fade-in">Official architectural plan &mdash; 3.5&nbsp;BHK + study/home office, from the registered Agreement for Sale.</p>
+    <h2 class="sec-title fade-in">Type&#8209;C Floorplan</h2>
     <p class="floorplan-hint fade-in"><i class="fas fa-hand-point-down"></i> Select any room on the plan to watch its video tour</p>
 
     <div class="fp-video-grid" id="fpVideoGrid" data-page data-page-label="Floorplan">
