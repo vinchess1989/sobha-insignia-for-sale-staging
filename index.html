@@ -825,18 +825,18 @@
     .spec-ul{gap:.25rem;}
     .spec-ul li{font-size:.66rem; line-height:1.4;}
 
-    /* Contact: brochure and contact share one screen */
-    #contact[data-mtab].mob-active{flex:0 0 62vw; width:62vw; display:flex !important; align-items:center; padding:.4rem .5rem .4rem 1.25rem !important;}
-    #brochure[data-mtab].mob-active{flex:0 0 38vw; width:38vw; display:flex !important; align-items:center; scroll-snap-align:none; padding:.4rem 1.25rem .4rem .75rem !important;}
-    #brochure .wrap, #contact .wrap{width:100%;}
+    /* Project & Contact landscape layout */
+    #contact[data-mtab].mob-active{flex:0 0 100vw; width:100vw; display:flex !important; align-items:center; justify-content:center; padding:.4rem 2rem !important;}
+    #brochure[data-mtab].mob-active{flex:0 0 100vw; width:100vw; display:flex !important; align-items:center; justify-content:center; scroll-snap-align:start; padding:.4rem 2rem !important;}
+    #brochure .wrap, #contact .wrap{width:100%; max-width:640px;}
     #brochure .wrap > .sec-eyebrow, #brochure .wrap > .sec-title{display:none;}
-    .brochure-panel{flex-direction:column; align-items:flex-start; padding:.9rem; gap:.5rem; border-radius:1rem;}
-    .brochure-icon{width:40px; height:40px; font-size:1.1rem; border-radius:.7rem;}
+    .brochure-panel{flex-direction:row; align-items:center; padding:1.15rem 1.5rem; gap:1.25rem; border-radius:1rem;}
+    .brochure-icon{width:52px; height:52px; font-size:1.3rem; border-radius:.8rem;}
     .brochure-text{min-width:0;}
-    .brochure-text h3{font-size:.9rem;}
-    .brochure-text p{font-size:.68rem;}
+    .brochure-text h3{font-size:1rem;}
+    .brochure-text p{font-size:.72rem;}
     .brochure-actions .btn{padding:.55rem .9rem; font-size:.78rem;}
-    .contact-grid{grid-template-columns:1fr; gap:.35rem; margin-bottom:.4rem;}
+    .contact-grid{grid-template-columns:1fr 1fr; gap:.5rem; margin-bottom:.4rem;}
     .contact-link{padding:.45rem .75rem; gap:.65rem; border-radius:.8rem;}
     .c-icon{width:28px; height:28px; font-size:.8rem;}
     .c-lbl{font-size:.58rem;}
@@ -1161,6 +1161,24 @@
         </ul>
       </div>
     </div>
+    <a class="next-step fade-in" href="#brochure">Next: official project brochure <i class="fas fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<section id="brochure" data-mtab="project" data-page data-page-label="Brochure">
+  <div class="wrap">
+    <div class="sec-eyebrow fade-in">Documentation</div>
+    <h2 class="sec-title fade-in">Project Brochure</h2>
+    <div class="brochure-panel fade-in">
+      <div class="brochure-icon"><i class="fas fa-file-pdf"></i></div>
+      <div class="brochure-text">
+        <h3>Sobha Insignia — Official Brochure</h3>
+        <p>Master plan, specifications, and amenity details from Sobha Limited.</p>
+      </div>
+      <div class="brochure-actions">
+        <a class="btn btn-gold" href="assets/brochure.pdf" target="_blank"><i class="fas fa-eye"></i> View Brochure</a>
+      </div>
+    </div>
     <a class="next-step next-step-final fade-in" href="#contact">Liked it? Book a site visit <i class="fas fa-arrow-right"></i></a>
   </div>
 </section>
@@ -1182,23 +1200,6 @@
       </a>
     </div>
     <p class="disclaimer fade-in">Listed directly by the owner — no broker involved. Areas, specifications and amenities are as stated in the Sobha Insignia Agreement for Sale and official project brochure. Sobha Insignia is a project of Sobha Limited; this page is an independent resale listing and is not published by or affiliated with Sobha Limited.</p>
-  </div>
-</section>
-
-<section id="brochure" data-mtab="contact" data-page data-page-label="Brochure">
-  <div class="wrap">
-    <div class="sec-eyebrow fade-in">Documentation</div>
-    <h2 class="sec-title fade-in">Project Brochure</h2>
-    <div class="brochure-panel fade-in">
-      <div class="brochure-icon"><i class="fas fa-file-pdf"></i></div>
-      <div class="brochure-text">
-        <h3>Sobha Insignia — Official Brochure</h3>
-        <p>Master plan, specifications, and amenity details from Sobha Limited.</p>
-      </div>
-      <div class="brochure-actions">
-        <a class="btn btn-gold" href="assets/brochure.pdf" target="_blank"><i class="fas fa-eye"></i> View Brochure</a>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1357,8 +1358,8 @@
     home: 'home', about: 'home',
     plan: 'plan', floorplan: 'plan', 'demo-unit': 'plan',
     photos: 'photos', gallery: 'photos',
-    project: 'project', amenities: 'project', location: 'project', specs: 'project',
-    contact: 'contact', brochure: 'contact'
+    project: 'project', amenities: 'project', location: 'project', specs: 'project', brochure: 'project',
+    contact: 'contact'
   };
   const mobTabBtns = document.querySelectorAll('.mobile-nav-item');
 
