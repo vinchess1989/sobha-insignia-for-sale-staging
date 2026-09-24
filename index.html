@@ -970,7 +970,9 @@
       <div class="video-col" id="demo-unit">
         <div class="video-col-label"><i class="fas fa-video"></i> Demo House Walkthrough</div>
         <div class="video-wrap">
-          <iframe id="demoVideo" width="100%" height="100%" src="https://www.youtube.com/embed/Ct0Kr643H-4?start=121&enablejsapi=1" title="Demo house walkthrough video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius: 1.5rem; display: block;"></iframe>
+          <video id="demoVideo" controls playsinline preload="metadata" poster="assets/demo-poster.jpg" style="border-radius: 1.5rem; display: block; width: 100%; height: 100%; object-fit: cover;">
+            <source src="assets/demo-walkthrough-1080.mp4" type="video/mp4">
+          </video>
         </div>
         <div class="video-now" id="videoNow" aria-live="polite"><i class="fas fa-hand-pointer"></i><span>Select a room on the plan to jump the video to it</span></div>
       </div>
@@ -1287,30 +1289,12 @@
     requestAnimationFrame(() => { if (typeof buildSubnav === 'function') buildSubnav(); });
   });
 
-  const ytApiScript = document.createElement('script');
-  ytApiScript.src = 'https://www.youtube.com/iframe_api';
-  document.head.appendChild(ytApiScript);
-
-  let demoPlayer = null;
-  let pendingSeek = null;
-
-  window.onYouTubeIframeAPIReady = () => {
-    const demoVideoEl = document.getElementById('demoVideo');
-    if (demoVideoEl) {
-      demoPlayer = new YT.Player('demoVideo', {
-        events: {
-          onReady: () => { if (pendingSeek !== null) { seekDemo(pendingSeek); pendingSeek = null; } }
-        }
-      });
-    }
-  };
+  const demoVideo = document.getElementById('demoVideo');
 
   function seekDemo(seconds) {
-    if (demoPlayer && typeof demoPlayer.seekTo === 'function') {
-      demoPlayer.seekTo(seconds, true);
-      demoPlayer.playVideo();
-    } else {
-      pendingSeek = seconds;
+    if (demoVideo) {
+      demoVideo.currentTime = seconds;
+      demoVideo.play().catch(() => {});
     }
   }
 
