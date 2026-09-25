@@ -626,21 +626,31 @@
     .thumb-cap{font-size:.68rem; padding:1rem .5rem .4rem;}
     .gallery-toggle{width:100%; justify-content:center; margin-bottom:1.5rem;}
 
-    /* Contents bar ends with where to go next */
+    /* Contents bar ends with where to go next — flows naturally without overlapping chips */
     .subnav-next{
       display:inline-flex; align-items:center; gap:.35rem; flex:0 0 auto;
-      position:sticky; right:0; margin-left:auto;
-      padding:.32rem .75rem; border-radius:999px; white-space:nowrap; cursor:pointer;
-      font-family:inherit; font-size:.7rem; font-weight:700; color:var(--gold-soft);
-      background:#0a0908; border:1px solid var(--border-lit); box-shadow:-10px 0 12px #0a0908;
+      position:relative; margin-left:.5rem;
+      padding:.28rem .7rem; border-radius:999px; white-space:nowrap; cursor:pointer;
+      font-family:inherit; font-size:.68rem; font-weight:700; color:var(--gold-soft);
+      background:rgba(212,175,55,0.08); border:1px solid var(--border-lit);
       touch-action:manipulation;
     }
 
-    section{padding:1.5rem 1rem 1rem;}
+    section{
+      padding:1rem .85rem .85rem;
+      scroll-margin-top:calc(var(--app-hdr) + var(--subnav-h) + 8px);
+    }
     section:nth-of-type(even){background:transparent;}
     .sec-eyebrow{margin-bottom:.35rem;}
     .sec-title{font-size:1.45rem; margin-bottom:.75rem;}
     .sec-desc{font-size:.88rem; line-height:1.65; margin-bottom:1.25rem;}
+    #brochure{scroll-margin-top:calc(var(--app-hdr) + var(--subnav-h) + 12px);}
+
+    /* Compact Amenities on mobile so all cards and brochure fit without scrolling */
+    #amenities{padding:.85rem .85rem .75rem;}
+    #amenities .sec-eyebrow{display:none;}
+    #amenities .sec-title{font-size:1.15rem; margin-bottom:.35rem;}
+    #amenities .sec-desc{display:none;}
     .about-grid{gap:1.5rem;}
     .about-text{font-size:.9rem; line-height:1.75;}
     .about-text p:nth-child(3){display:none;}
@@ -670,16 +680,24 @@
     /* Project */
     .video-wrap{border-radius:1rem;}
     #walkthrough .video-wrap iframe{width:100%; height:auto; aspect-ratio:16/9;}
-    .amen-grid{grid-template-columns:repeat(2,1fr); gap:.6rem;}
-    .amen-card{padding:.95rem .5rem; border-radius:.85rem;}
-    .amen-icon{font-size:1.25rem; margin-bottom:.5rem;}
-    .amen-name{font-size:.78rem;}
+    .amen-grid{grid-template-columns:repeat(4,1fr); gap:.35rem; margin-bottom:.55rem;}
+    .amen-card{padding:.45rem .2rem; border-radius:.65rem;}
+    .amen-icon{font-size:.95rem; margin-bottom:.2rem;}
+    .amen-name{font-size:.62rem; line-height:1.15;}
     .specs-grid{gap:.75rem;}
     .spec-card{padding:1.15rem;}
 
-    /* Contact */
-    .brochure-panel{padding:1.25rem; gap:1rem;}
-    .brochure-icon{width:64px; height:64px; font-size:1.6rem;}
+    /* Brochure panel on mobile */
+    .brochure-panel{
+      display:flex; align-items:center; gap:.75rem; flex-wrap:nowrap;
+      padding:.6rem .85rem; border-radius:.85rem; margin-top:.45rem;
+    }
+    .brochure-icon{width:38px; height:38px; font-size:1.15rem; border-radius:.6rem; flex-shrink:0;}
+    .brochure-text{min-width:0; flex:1;}
+    .brochure-text h3{font-size:.82rem; margin-bottom:.1rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .brochure-text p{font-size:.64rem; line-height:1.3; color:var(--text-3); display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden;}
+    .brochure-actions{flex-shrink:0;}
+    .brochure-actions .btn{padding:.42rem .75rem; font-size:.72rem; white-space:nowrap;}
     .contact-grid{gap:.7rem; margin-bottom:1.5rem;}
     .contact-link{min-width:0;}
     .c-val{overflow-wrap:anywhere;}
@@ -1115,7 +1133,7 @@
     </div>
 
     <!-- Official Project Brochure inside Project Amenities -->
-    <div class="brochure-panel fade-in" id="brochure">
+    <div class="brochure-panel fade-in" id="brochure" data-page data-page-label="Brochure">
       <div class="brochure-icon"><i class="fas fa-file-pdf"></i></div>
       <div class="brochure-text">
         <h3>Sobha Insignia &mdash; Official Project Brochure</h3>
