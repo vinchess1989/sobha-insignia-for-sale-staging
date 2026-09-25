@@ -47,9 +47,9 @@
 
   nav{
     position:fixed; top:0; width:100%; z-index:100;
-    padding:1rem 2.5rem;
+    padding:.8rem 2.2rem;
     display:flex; justify-content:space-between; align-items:center;
-    background:rgba(10,9,8,0.82);
+    background:rgba(10,9,8,0.88);
     backdrop-filter:blur(20px);
     border-bottom:1px solid var(--border);
   }
@@ -58,8 +58,8 @@
     letter-spacing:0.04em; color:var(--gold-soft);
   }
   .nav-logo span{color:var(--text-2); font-weight:400; font-size:0.85rem;}
-  .nav-links{display:flex; gap:2rem; list-style:none;}
-  .nav-links a{color:var(--text-2); text-decoration:none; font-size:0.82rem; font-weight:500; letter-spacing:0.03em; transition:color .2s;}
+  .nav-links{display:flex; gap:1.35rem; list-style:none;}
+  .nav-links a{color:var(--text-2); text-decoration:none; font-size:0.82rem; font-weight:500; letter-spacing:0.02em; transition:color .2s; white-space:nowrap;}
   .nav-links a:hover{color:var(--gold-soft);}
   .nav-cta{
     display:inline-flex; align-items:center; gap:.5rem;
@@ -69,13 +69,14 @@
     flex-shrink:0; white-space:nowrap;
   }
   @media (max-width:1180px){
-    nav{padding:1rem 1.5rem;}
-    .nav-links{gap:1.1rem;}
-    .nav-links a{font-size:.76rem; letter-spacing:.01em;}
-  }
-  @media (max-width:880px){
+    nav{padding:.75rem 1.25rem;}
     .nav-links{gap:.85rem;}
-    .nav-cta{padding:.55rem .7rem;}
+    .nav-links a{font-size:.74rem; letter-spacing:.01em;}
+  }
+  @media (max-width:960px){
+    .nav-links{gap:.65rem;}
+    .nav-links a{font-size:.7rem;}
+    .nav-cta{padding:.5rem .7rem;}
     .nav-cta-text{display:none;}
   }
 
@@ -147,12 +148,12 @@
   @media (max-width:900px){ .stats-strip{grid-template-columns:repeat(3,1fr);} }
   @media (max-width:520px){ .stats-strip{grid-template-columns:repeat(2,1fr);} }
 
-  section{padding:6rem 2rem; position:relative; scroll-margin-top:4.5rem;}
+  section{padding:2.25rem 2rem 3.5rem; position:relative; scroll-margin-top:3.6rem;}
   section:nth-of-type(even){background:var(--bg-1);}
   .wrap{max-width:1040px; margin:0 auto;}
-  .sec-eyebrow{font-size:.7rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-soft); margin-bottom:.6rem;}
-  .sec-title{font-size:clamp(1.7rem,3.5vw,2.3rem); font-weight:700; margin-bottom:1.25rem;}
-  .sec-desc{color:var(--text-2); font-size:.98rem; max-width:680px; margin-bottom:3rem; line-height:1.85;}
+  .sec-eyebrow{font-size:.7rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-soft); margin-bottom:.35rem;}
+  .sec-title{font-size:clamp(1.55rem,2.8vw,2.15rem); font-weight:700; margin-bottom:.65rem; line-height:1.2;}
+  .sec-desc{color:var(--text-2); font-size:.92rem; max-width:680px; margin-bottom:1.5rem; line-height:1.6;}
 
   /* ABOUT */
   .about-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:3rem; align-items:start;}
@@ -350,22 +351,25 @@
   .rooms-table td:first-child{color:var(--text-1); font-weight:500;}
 
   /* AMENITIES */
-  .amen-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:1.1rem;}
+  .amen-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:.9rem;}
   .amen-card{
-    background:var(--bg-card); border:1px solid var(--border); border-radius:1.1rem;
-    padding:1.5rem; text-align:center; transition:all .2s;
+    background:var(--bg-card); border:1px solid var(--border); border-radius:1rem;
+    padding:1.1rem .8rem; text-align:center; transition:all .2s;
   }
   .amen-card:hover{border-color:var(--border-lit); transform:translateY(-3px);}
-  .amen-icon{font-size:1.6rem; color:var(--gold-soft); margin-bottom:.8rem;}
-  .amen-name{font-size:.85rem; font-weight:600;}
+  .amen-icon{font-size:1.35rem; color:var(--gold-soft); margin-bottom:.5rem;}
+  .amen-name{font-size:.82rem; font-weight:600;}
 
   /* SPECS */
-  .specs-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1.25rem;}
-  .spec-card{background:var(--bg-card); border:1px solid var(--border); border-radius:1.25rem; padding:1.6rem;}
+  .specs-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1.15rem;}
+  @media (min-width:960px){
+    .specs-grid{grid-template-columns:repeat(4,1fr); gap:1rem;}
+  }
+  .spec-card{background:var(--bg-card); border:1px solid var(--border); border-radius:1.15rem; padding:1.35rem;}
   .spec-card:hover{border-color:var(--border-lit);}
-  .spec-name{font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-soft); margin-bottom:.9rem;}
-  .spec-ul{list-style:none; display:flex; flex-direction:column; gap:.55rem;}
-  .spec-ul li{font-size:.86rem; color:var(--text-2); padding-left:1.1rem; position:relative;}
+  .spec-name{font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-soft); margin-bottom:.75rem;}
+  .spec-ul{list-style:none; display:flex; flex-direction:column; gap:.45rem;}
+  .spec-ul li{font-size:.84rem; color:var(--text-2); padding-left:1.1rem; position:relative;}
   .spec-ul li::before{content:'—'; position:absolute; left:0; color:var(--gold-soft);}
 
   /* VIDEO */
@@ -377,18 +381,19 @@
 
   /* BROCHURE */
   .brochure-panel{
-    display:flex; gap:2rem; align-items:center; flex-wrap:wrap;
-    background:var(--bg-card); border:1px solid var(--border); border-radius:1.5rem; padding:2.5rem;
+    display:flex; gap:1.5rem; align-items:center; flex-wrap:wrap;
+    background:var(--bg-card); border:1px solid var(--border-lit); border-radius:1.25rem;
+    padding:1.25rem 1.75rem; margin-top:1.5rem;
   }
   .brochure-icon{
-    width:90px; height:90px; border-radius:1.25rem; flex-shrink:0;
+    width:64px; height:64px; border-radius:1rem; flex-shrink:0;
     background:linear-gradient(135deg, rgba(212,175,55,0.15), rgba(212,175,55,0.03));
     border:1px solid var(--border-lit);
-    display:flex; align-items:center; justify-content:center; font-size:2.2rem; color:var(--gold-soft);
+    display:flex; align-items:center; justify-content:center; font-size:1.65rem; color:var(--gold-soft);
   }
   .brochure-text{flex:1; min-width:220px;}
-  .brochure-text h3{font-size:1.2rem; margin-bottom:.4rem;}
-  .brochure-text p{color:var(--text-3); font-size:.85rem;}
+  .brochure-text h3{font-size:1.05rem; margin-bottom:.25rem;}
+  .brochure-text p{color:var(--text-3); font-size:.82rem;}
   .brochure-actions{display:flex; gap:.75rem; flex-wrap:wrap;}
 
   /* CONTACT */
@@ -883,9 +888,10 @@
     <li><a href="#about"><span class="nav-num">1</span>At a glance</a></li>
     <li><a href="#floorplan"><span class="nav-num">2</span>Tour the home</a></li>
     <li><a href="#gallery"><span class="nav-num">3</span>Photos</a></li>
-    <li><a href="#amenities"><span class="nav-num">4</span>Project</a></li>
+    <li><a href="#amenities"><span class="nav-num">4</span>Amenities</a></li>
     <li><a href="#location"><span class="nav-num">5</span>Location</a></li>
-    <li><a href="#contact"><span class="nav-num">6</span>Visit</a></li>
+    <li><a href="#specs"><span class="nav-num">6</span>Specs</a></li>
+    <li><a href="#contact"><span class="nav-num">7</span>Visit</a></li>
   </ul>
   <a class="nav-cta" href="https://wa.me/918921658093?text=Hi%2C%20I%27m%20interested%20in%20your%20listing%20at%20Sobha%20Insignia" target="_blank" aria-label="Enquire on WhatsApp"><i class="fab fa-whatsapp"></i> <span class="nav-cta-text">Enquire</span></a>
 </nav>
@@ -1107,6 +1113,19 @@
       <div class="amen-card"><div class="amen-icon"><i class="fas fa-video"></i></div><div class="amen-name">Video Door Phone</div></div>
       <div class="amen-card"><div class="amen-icon"><i class="fas fa-shield-halved"></i></div><div class="amen-name">Intercom Security</div></div>
     </div>
+
+    <!-- Official Project Brochure inside Project Amenities -->
+    <div class="brochure-panel fade-in" id="brochure">
+      <div class="brochure-icon"><i class="fas fa-file-pdf"></i></div>
+      <div class="brochure-text">
+        <h3>Sobha Insignia &mdash; Official Project Brochure</h3>
+        <p>Master plan, specifications, club details, and floor dimensions from Sobha Limited.</p>
+      </div>
+      <div class="brochure-actions">
+        <a class="btn btn-gold" href="assets/brochure.pdf" target="_blank"><i class="fas fa-file-pdf"></i> View Brochure</a>
+      </div>
+    </div>
+
     <a class="next-step fade-in" href="#location">Next: check the location <i class="fas fa-arrow-right"></i></a>
   </div>
 </section>
@@ -1116,7 +1135,7 @@
     <div class="sec-eyebrow fade-in">Location</div>
     <h2 class="sec-title fade-in">Nearby Corporate Parks, Hospitals &amp; Colleges</h2>
     <p class="sec-desc fade-in">Sobha Insignia sits inside the Bellandur / Outer Ring Road tech corridor &mdash; minutes from major IT campuses, healthcare, and educational institutions.</p>
-    <div class="fade-in" style="border-radius:1.25rem; overflow:hidden; border:1px solid var(--border); box-shadow:0 30px 80px rgba(0,0,0,0.5);">
+    <div class="fade-in location-map-wrap" style="border-radius:1.25rem; overflow:hidden; border:1px solid var(--border); box-shadow:0 30px 80px rgba(0,0,0,0.5);">
       <img src="assets/location-map.png" alt="Map of Sobha Insignia and nearby corporate offices, hospitals, colleges and landmarks" style="width:100%; display:block;">
     </div>
     <a class="next-step fade-in" href="#specs">Next: what's built in <i class="fas fa-arrow-right"></i></a>
@@ -1159,24 +1178,6 @@
           <li>Video door phone, intercom &amp; TV/Data/Telephone points in every room</li>
           <li>Power provision for VRV / split AC system</li>
         </ul>
-      </div>
-    </div>
-    <a class="next-step fade-in" href="#brochure">Next: official project brochure <i class="fas fa-arrow-right"></i></a>
-  </div>
-</section>
-
-<section id="brochure" data-mtab="project" data-page data-page-label="Brochure">
-  <div class="wrap">
-    <div class="sec-eyebrow fade-in">Documentation</div>
-    <h2 class="sec-title fade-in">Project Brochure</h2>
-    <div class="brochure-panel fade-in">
-      <div class="brochure-icon"><i class="fas fa-file-pdf"></i></div>
-      <div class="brochure-text">
-        <h3>Sobha Insignia — Official Brochure</h3>
-        <p>Master plan, specifications, and amenity details from Sobha Limited.</p>
-      </div>
-      <div class="brochure-actions">
-        <a class="btn btn-gold" href="assets/brochure.pdf" target="_blank"><i class="fas fa-eye"></i> View Brochure</a>
       </div>
     </div>
     <a class="next-step next-step-final fade-in" href="#contact">Liked it? Book a site visit <i class="fas fa-arrow-right"></i></a>
